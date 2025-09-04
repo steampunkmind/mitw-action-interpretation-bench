@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cs0klsg2mt3b7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ynj0"]
+font_size = 64
+font_color = Color(0, 0, 0, 1)
+
+[node name="Bench" type="ColorRect"]
+offset_right = 3300.0
+offset_bottom = 1950.0
+
+[node name="Header" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 8.0
+offset_right = 2080.0
+offset_bottom = 96.0
+text = "Action Interpretation Bench"
+label_settings = SubResource("LabelSettings_6ynj0")
