@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4rb4np51o66m"]
+[gd_scene load_steps=10 format=3 uid="uid://b4rb4np51o66m"]
 
 [ext_resource type="Script" uid="uid://bca7xre80o3an" path="res://objects/bench.gd" id="1_3f1fh"]
 [ext_resource type="Script" path="res://objects/action_buttons.gd" id="2_8yn5t"]
 [ext_resource type="Texture2D" uid="uid://doomh0n86fwf4" path="res://graphics/eye_close.svg" id="2_s8r3v"]
 [ext_resource type="Texture2D" uid="uid://6y74xinemfm1" path="res://graphics/eye_open.svg" id="3_6n0in"]
+[ext_resource type="PackedScene" uid="uid://dfts6e1ybq617" path="res://objects/governor_grid.tscn" id="5_6n0in"]
 [ext_resource type="Theme" uid="uid://b17c7kcu4qhib" path="res://objects/bench.tres" id="7_tjv83"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6ynj0"]
@@ -152,6 +153,12 @@ offset_right = 35.0
 offset_bottom = 47.0
 scale = Vector2(2.8, 2.8)
 text = "Action"
+
+[node name="GovernorGrid" parent="." instance=ExtResource("5_6n0in")]
+layout_mode = 0
+offset_top = 388.0
+offset_bottom = 1948.0
+color = Color(1, 1, 1, 1)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
