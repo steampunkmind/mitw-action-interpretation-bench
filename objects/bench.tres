@@ -1,0 +1,5 @@
+[gd_resource type="Theme" format=3 uid="uid://b17c7kcu4qhib"]
+
+[resource]
+resource_name = "dialog"
+default_font_size = 32

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MITW Action Interpretation Bench"
-run/main_scene="uid://cs0klsg2mt3b7"
+run/main_scene="uid://b4rb4np51o66m"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
