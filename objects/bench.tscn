@@ -70,8 +70,16 @@ offset_bottom = 41.0
 scale = Vector2(2.8, 2.8)
 text = "Open AIM"
 
+[node name="CloseAIMButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 265.0
+offset_top = 10.0
+offset_right = 349.0
+offset_bottom = 41.0
+scale = Vector2(2.8, 2.8)
+text = "Close AIM"
+
 [node name="OpenGAMButton" type="Button" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 511.0
 offset_top = 10.0
@@ -80,14 +88,14 @@ offset_bottom = 41.0
 scale = Vector2(2.8, 2.8)
 text = "Open GAM"
 
-[node name="CloseButton" type="Button" parent="."]
+[node name="CloseGAMButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 265.0
+offset_left = 779.0
 offset_top = 10.0
-offset_right = 349.0
+offset_right = 870.0
 offset_bottom = 41.0
 scale = Vector2(2.8, 2.8)
-text = "Close AIM"
+text = "Close GAM"
 
 [node name="SaveButton" type="Button" parent="."]
 visible = false
@@ -226,9 +234,10 @@ dialog_text = "
       If you don't save, your changes will be lost."
 
 [connection signal="pressed" from="NewButton" to="." method="_on_new_button_pressed"]
-[connection signal="pressed" from="OpenAIMButton" to="." method="_on_open_button_pressed"]
-[connection signal="pressed" from="OpenGAMButton" to="." method="_on_open_button_pressed"]
-[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="OpenAIMButton" to="." method="_on_open_aim_button_pressed"]
+[connection signal="pressed" from="CloseAIMButton" to="." method="_on_close_aim_button_pressed"]
+[connection signal="pressed" from="OpenGAMButton" to="." method="_on_open_gam_button_pressed"]
+[connection signal="pressed" from="CloseGAMButton" to="." method="_on_close_gam_button_pressed"]
 [connection signal="pressed" from="SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="SaveAsButton" to="." method="_on_save_as_button_pressed"]
 [connection signal="toggled" from="EditActionsButton" to="." method="_on_edit_actions_button_toggled"]

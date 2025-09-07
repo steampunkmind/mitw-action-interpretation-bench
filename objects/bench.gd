@@ -3,7 +3,8 @@ extends ColorRect
 const DONT_SAVE = "Don't Save"
 
 var _model: ActionInfluenceModel
-var _is_model: bool = false
+var _is_aim_model: bool = false
+var _is_gam_model: bool = false
 var _model_path: String = ""
 var _is_dirty: bool = false
 var _close_after_save: bool = false
@@ -59,8 +60,28 @@ func _on_new_button_pressed() -> void:
 	$ActionButtons.init_action()
 
 
-func _on_open_button_pressed() -> void:
+func _on_open_aim_button_pressed() -> void:
 	$OpenFileDialog.popup()
+
+
+func _on_close_aim_button_pressed() -> void:
+	if _is_dirty:
+		$CloseConfirmationDialog.popup()
+	else:
+		_set_is_dirty(false)
+		_set_is_model(false)
+
+
+func _on_open_gam_button_pressed() -> void:
+	_is_gam_model = true
+	_reset_interface()
+	print("_on_open_gam_button_pressed")
+
+
+func _on_close_gam_button_pressed() -> void:
+	_is_gam_model = false
+	_reset_interface()
+	print("_on_close_gam_button_pressed")
 
 
 func _on_open_file_dialog_file_selected(path: String) -> void:
@@ -74,14 +95,6 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
 	$SensorDisplay.update_sensors()
 	$ActionButtons.init_action()
 	_set_is_model(true, path)
-
-
-func _on_close_button_pressed() -> void:
-	if _is_dirty:
-		$CloseConfirmationDialog.popup()
-	else:
-		_set_is_dirty(false)
-		_set_is_model(false)
 
 
 func _on_close_confirmation_dialog_confirmed() -> void:
@@ -138,7 +151,7 @@ func get_dict() -> Dictionary:
 
 
 func _set_is_model(is_model: bool, model_path: String = "") -> void:
-	_is_model = is_model
+	_is_aim_model = is_model
 	$SubHeader.visible = is_model
 	$SubHeader.text = model_path.get_basename().get_file().capitalize()
 	_model_path = model_path
@@ -146,8 +159,8 @@ func _set_is_model(is_model: bool, model_path: String = "") -> void:
 	$Timer.paused = !is_model
 
 
-func _get_is_model() -> bool:
-	return _is_model
+func _get_is_aim_model() -> bool:
+	return _is_aim_model
 
 
 func _get_is_model_file() -> bool:
@@ -189,22 +202,24 @@ func _disable_interface() -> void:
 	$SensorDisplay.visible = false
 	$NewButton.disabled = true
 	$OpenAIMButton.disabled = true
+	$CloseAIMButton.disabled = true
 	$OpenGAMButton.disabled = true
-	$CloseButton.disabled = true
+	$CloseGAMButton.disabled = true
 	$SaveButton.disabled = true
 	$SaveAsButton.disabled = true
 
 
 func _reset_interface() -> void:
-	$ActionButtons.visible = _is_model
-	$SensorDisplay.visible = _is_model
-	$NewButton.disabled = _is_model
-	$OpenAIMButton.disabled = _is_model
-	$OpenGAMButton.disabled = !_is_model
-	$CloseButton.disabled = !_is_model
+	$ActionButtons.visible = _is_aim_model
+	$SensorDisplay.visible = _is_aim_model
+	$NewButton.disabled = _is_aim_model
+	$OpenAIMButton.disabled = _is_aim_model
+	$CloseAIMButton.disabled = !_is_aim_model or _is_gam_model
+	$OpenGAMButton.disabled = !_is_aim_model or _is_gam_model
+	$CloseGAMButton.disabled = !_is_gam_model
 	$SaveButton.disabled = !_is_dirty
 	$SaveAsButton.disabled = !_is_dirty
-	$EditActionsButton.disabled = !_is_model
+	$EditActionsButton.disabled = !_is_aim_model
 
 
 func _on_eye_button_toggled(toggled_on: bool) -> void:
