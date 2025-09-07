@@ -13,49 +13,49 @@ var action_buttons: Array[Button]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$ActionButtonTemplate.visible = false
-	
-	
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-	
-	
+
+
 func set_model(value: ActionInfluenceModel):
 	_model = value
-	
-	
+
+
 func update_buttons():
 	clear_action_buttons()
 	add_action_buttons()
 	show_hide_buttons()
-	
-	
+
+
 func _action_button_pressed(action: Action) -> void:
 	action_button_pressed.emit(action)
-	
-	
+
+
 func set_new_model() -> void:
 	_model.fill_actions(action_array)
 	update_buttons()
-	
-	
+
+
 func init_action() -> void:
 	# called by bench to init after other scenes are set up. 
 	_action_button_pressed(_model.get_actions()[0])
-	
-	
+
+
 func clear_action_buttons():
 	for action_button: Button in action_buttons:
 		remove_child(action_button)
 	action_buttons.clear()
-	
-	
+
+
 func add_action_buttons():
 	new_button_location = $ActionButtonTemplate.position.x
 	for action: Action in _model.get_actions():
 		add_action_button(action)
-	
-	
+
+
 func add_action_button(action: Action) -> void:
 	var button = $ActionButtonTemplate.duplicate(1)
 	var button_margin = button.position.x
@@ -67,8 +67,8 @@ func add_action_button(action: Action) -> void:
 	action_buttons.append(button)
 	button.visible = true
 	new_button_location = button.position.x + (button.size.x * button.get_scale().x) + button_margin
-	
-	
+
+
 func show_hide_buttons():
 	for action: Action in _model.get_actions():
 		if !action.get_visible():
@@ -77,16 +77,16 @@ func show_hide_buttons():
 				child.show()
 			else:
 				child.hide()
-	
-	
+
+
 ### Action Agent functions ###
 func select_action(action_name: String) -> void:
 	for action: Action in _model.get_actions():
 		if (action.get_name() == action_name):
 			action_button_pressed.emit(action)
 			break
-	
-	
+
+
 func shuffle_action(action_names) -> void:
 	var actions_to_shuffle = []
 	for action: Action in _model.get_actions():
@@ -105,5 +105,3 @@ func shuffle_action(action_names) -> void:
 		var influences = influences_array[influences_index]
 		action.set_influences(influences)
 		influences_index = influences_index + 1
-	
-	

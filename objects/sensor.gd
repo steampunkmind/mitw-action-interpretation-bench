@@ -19,40 +19,40 @@ func _init(name: String, min: float, max: float, value: float):
 	_types.set(SensorFormulaSelectAction.TYPE, SensorFormulaSelectAction.new())
 	_types.set(SensorFormulaDelayAction.TYPE, SensorFormulaDelayAction.new())
 	_types.set(SensorFormulaShuffleAction.TYPE, SensorFormulaShuffleAction.new())
-	
-	
+
+
 func get_name():
 	return _dict.get('name')
-	
-	
+
+
 func get_min():
 	return _dict.get('min')
-	
-	
+
+
 func get_max():
 	return _dict.get('max')
-	
-	
+
+
 func get_value() -> float:
 	return _dict.get('value')
-	
-	
+
+
 func set_value(value: float):
 	_dict.set('value', value)
-	
-	
+
+
 func get_formulas() -> Dictionary:
 	return _formulas
-	
-	
+
+
 func set_formulas(value: Dictionary):
 	_formulas = value
-	
-	
+
+
 func get_dict() -> Dictionary:
 	return _dict
-	
-	
+
+
 ### Formulas ###
 func get_formula_value(sensor: Sensor, formulas: Dictionary) -> float:
 	var result = sensor.get_value()

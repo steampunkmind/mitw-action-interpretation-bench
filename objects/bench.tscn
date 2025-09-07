@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4rb4np51o66m"]
+[gd_scene load_steps=14 format=3 uid="uid://b4rb4np51o66m"]
 
 [ext_resource type="Script" uid="uid://bca7xre80o3an" path="res://objects/bench.gd" id="1_3f1fh"]
-[ext_resource type="Script" path="res://objects/action_buttons.gd" id="2_8yn5t"]
+[ext_resource type="Script" uid="uid://domph6oksm6me" path="res://objects/action_buttons.gd" id="2_8yn5t"]
 [ext_resource type="Texture2D" uid="uid://doomh0n86fwf4" path="res://graphics/eye_close.svg" id="2_s8r3v"]
 [ext_resource type="Texture2D" uid="uid://6y74xinemfm1" path="res://graphics/eye_open.svg" id="3_6n0in"]
 [ext_resource type="PackedScene" uid="uid://dfts6e1ybq617" path="res://objects/governor_grid.tscn" id="5_6n0in"]
+[ext_resource type="Script" uid="uid://c05k50er8ae61" path="res://objects/sensor_display.gd" id="5_ukuu0"]
+[ext_resource type="PackedScene" uid="uid://cs8l67fa7v2dm" path="res://objects/sensor_display_row.tscn" id="6_2ca8i"]
+[ext_resource type="Script" uid="uid://c8hjonlqekegc" path="res://objects/governor_grid.gd" id="6_n2whr"]
 [ext_resource type="Theme" uid="uid://b17c7kcu4qhib" path="res://objects/bench.tres" id="7_tjv83"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6ynj0"]
@@ -17,6 +20,10 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_a5qnj"]
 font_size = 48
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ca8i"]
+font_size = 42
 font_color = Color(0, 0, 0, 1)
 
 [node name="Bench" type="ColorRect"]
@@ -45,6 +52,7 @@ label_settings = SubResource("LabelSettings_lps7h")
 horizontal_alignment = 1
 
 [node name="NewButton" type="Button" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -53,25 +61,36 @@ offset_bottom = 41.0
 scale = Vector2(2.8, 2.8)
 text = "New"
 
-[node name="OpenButton" type="Button" parent="."]
+[node name="OpenAIMButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 152.0
+offset_left = 16.0
 offset_top = 10.0
-offset_right = 198.0
+offset_right = 101.0
 offset_bottom = 41.0
 scale = Vector2(2.8, 2.8)
-text = "Open"
+text = "Open AIM"
+
+[node name="OpenGAMButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 511.0
+offset_top = 10.0
+offset_right = 603.0
+offset_bottom = 41.0
+scale = Vector2(2.8, 2.8)
+text = "Open GAM"
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 306.0
+offset_left = 265.0
 offset_top = 10.0
-offset_right = 356.0
+offset_right = 349.0
 offset_bottom = 41.0
 scale = Vector2(2.8, 2.8)
-text = "Close"
+text = "Close AIM"
 
 [node name="SaveButton" type="Button" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 459.0
 offset_top = 10.0
@@ -81,6 +100,7 @@ scale = Vector2(2.8, 2.8)
 text = "Save"
 
 [node name="SaveAsButton" type="Button" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 596.0
 offset_top = 10.0
@@ -154,11 +174,29 @@ offset_bottom = 47.0
 scale = Vector2(2.8, 2.8)
 text = "Action"
 
-[node name="GovernorGrid" parent="." instance=ExtResource("5_6n0in")]
+[node name="SensorDisplay" type="ColorRect" parent="."]
 layout_mode = 0
 offset_top = 388.0
+offset_right = 500.0
 offset_bottom = 1948.0
-color = Color(1, 1, 1, 1)
+color = Color(0.784314, 0.784314, 0.784314, 1)
+script = ExtResource("5_ukuu0")
+sensor_display_row_template = ExtResource("6_2ca8i")
+
+[node name="Label" type="Label" parent="SensorDisplay"]
+layout_mode = 0
+offset_left = 17.0
+offset_right = 155.0
+offset_bottom = 48.0
+text = "Sensor"
+label_settings = SubResource("LabelSettings_2ca8i")
+
+[node name="GovernorGrid" parent="." instance=ExtResource("5_6n0in")]
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 388.0
+offset_bottom = 1948.0
+script = ExtResource("6_n2whr")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
@@ -188,7 +226,8 @@ dialog_text = "
       If you don't save, your changes will be lost."
 
 [connection signal="pressed" from="NewButton" to="." method="_on_new_button_pressed"]
-[connection signal="pressed" from="OpenButton" to="." method="_on_open_button_pressed"]
+[connection signal="pressed" from="OpenAIMButton" to="." method="_on_open_button_pressed"]
+[connection signal="pressed" from="OpenGAMButton" to="." method="_on_open_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="SaveAsButton" to="." method="_on_save_as_button_pressed"]

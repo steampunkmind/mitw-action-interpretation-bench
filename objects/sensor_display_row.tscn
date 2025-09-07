@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://cs8l67fa7v2dm"]
+
+[ext_resource type="Script" uid="uid://dfu68twmqmlbq" path="res://objects/sensor_display_row.gd" id="1_7wfrd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bq6n0"]
+font_size = 32
+font_color = Color(0.313726, 0.54902, 0.784314, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7wfrd"]
+font_size = 32
+font_color = Color(0.313726, 0.54902, 0.784314, 1)
+
+[node name="SensorDisplayRow" type="ColorRect"]
+offset_left = 8.0
+offset_right = 500.0
+offset_bottom = 48.0
+script = ExtResource("1_7wfrd")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 113.0
+offset_bottom = 45.0
+text = "Sensor"
+label_settings = SubResource("LabelSettings_bq6n0")
+
+[node name="SensorValue" type="Label" parent="."]
+layout_mode = 0
+offset_left = 368.0
+offset_top = 2.0
+offset_right = 482.0
+offset_bottom = 49.0
+label_settings = SubResource("LabelSettings_7wfrd")
+horizontal_alignment = 2
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(490, 0, 490, 48)
+width = 4.0
+default_color = Color(0.313726, 0.54902, 0.784314, 1)
