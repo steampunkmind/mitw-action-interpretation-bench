@@ -3,9 +3,11 @@ extends ColorRect
 const DONT_SAVE = "Don't Save"
 
 var _aim_model: ActionInfluenceModel
+var _gam_model: GovernorActionModel
 var _is_aim_model: bool = false
 var _is_gam_model: bool = false
-var _model_path: String = ""
+var _aim_model_path: String = ""
+var _gam_model_path: String = ""
 var _is_dirty: bool = false
 var _close_after_save: bool = false
 
@@ -23,8 +25,10 @@ func _ready() -> void:
 	_aim_model = ActionInfluenceModel.new()
 	SensorFormula.model = _aim_model # set global var
 	SensorFormula.action_agent = $ActionButtons # set global var
-	$ActionButtons.set_model(_aim_model)
-	$SensorDisplay.set_model(_aim_model)
+	$ActionButtons.set_aim_model(_aim_model)
+	$SensorDisplay.set_aim_model(_aim_model)
+	_gam_model = GovernorActionModel.new()
+	$GovernorDisplay.set_gam_model(_gam_model)
 	$Timer.paused = true
 
 
@@ -79,9 +83,7 @@ func _on_open_gam_button_pressed() -> void:
 
 
 func _on_close_gam_button_pressed() -> void:
-	_is_gam_model = false
-	_reset_interface()
-	print("_on_close_gam_button_pressed")
+	_set_is_gam_model(false)
 
 
 func _on_open_file_dialog_file_selected(path: String) -> void:
@@ -97,7 +99,9 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
 		$ActionButtons.init_action()
 		_set_is_aim_model(true, path)
 	else:
-		print("_on_open_file_dialog_file_selected")
+		_gam_model.set_governor_dicts(json.get('governors') as Array)
+		_set_is_gam_model(true, path)
+
 
 func _on_close_confirmation_dialog_confirmed() -> void:
 	_close_after_save = true
@@ -136,7 +140,7 @@ func _on_save_file_dialog_file_selected(path: String) -> void:
 
 
 func _write_file() -> void:
-	var file = FileAccess.open(_model_path, FileAccess.WRITE)
+	var file = FileAccess.open(_gam_model_path, FileAccess.WRITE)
 	var content = JSON.stringify(get_dict(), "\t") # Remove the tab to reduce file size someday?
 	file.store_line(content)
 	_set_is_dirty(false)
@@ -154,19 +158,30 @@ func get_dict() -> Dictionary:
 
 func _set_is_aim_model(is_aim_model: bool, model_path: String = "") -> void:
 	_is_aim_model = is_aim_model
-	$SubHeader.visible = is_aim_model
-	$SubHeader.text = model_path.get_basename().get_file().capitalize()
-	_model_path = model_path
+	#$SubHeader.visible = is_aim_model
+	#$SubHeader.text = model_path.get_basename().get_file().capitalize()
+	_aim_model_path = model_path
 	_reset_interface()
-	$Timer.paused = !is_aim_model
+	#$Timer.paused = !is_aim_model
 
 
 func _get_is_aim_model() -> bool:
 	return _is_aim_model
 
-
+func _set_is_gam_model(is_gam_model: bool, model_path: String = "") -> void:
+	_is_gam_model = is_gam_model
+	_gam_model_path = model_path
+	$SubHeader.visible = is_gam_model
+	var aim_name = _aim_model_path.get_basename().get_file().capitalize()
+	var gam_name = _gam_model_path.get_basename().get_file().capitalize()
+	
+	$SubHeader.text = aim_name + " - " + gam_name
+	_reset_interface()
+	$Timer.paused = !is_gam_model
+	
+	
 func _get_is_model_file() -> bool:
-	return _model_path != ""
+	return _gam_model_path != ""
 
 
 func _on_edit_actions_model_changed() -> void:
@@ -202,6 +217,7 @@ func _on_edit_actions_button_toggled(toggled_on: bool) -> void:
 func _disable_interface() -> void:
 	$ActionButtons.visible = false
 	$SensorDisplay.visible = false
+	$GovernorDisplay.visible = false
 	$NewButton.disabled = true
 	$OpenAIMButton.disabled = true
 	$CloseAIMButton.disabled = true
@@ -214,6 +230,7 @@ func _disable_interface() -> void:
 func _reset_interface() -> void:
 	$ActionButtons.visible = _is_aim_model
 	$SensorDisplay.visible = _is_aim_model
+	$GovernorDisplay.visible = _is_gam_model
 	$NewButton.disabled = _is_aim_model
 	$OpenAIMButton.disabled = _is_aim_model
 	$CloseAIMButton.disabled = !_is_aim_model or _is_gam_model

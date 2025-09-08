@@ -1,5 +1,6 @@
-extends ColorRect
+class_name GovernorDisplay extends ColorRect
 
+var _gam_model: GovernorActionModel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,3 +10,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func set_gam_model(value: GovernorActionModel):
+	_gam_model = value

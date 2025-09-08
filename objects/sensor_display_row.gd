@@ -1,6 +1,6 @@
 class_name SensorDisplayRow extends ColorRect
 
-var _model: ActionInfluenceModel
+var _aim_model: ActionInfluenceModel
 var _sensor: Sensor 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,8 +13,8 @@ func _process(delta: float) -> void:
 	pass
 
 
-func set_model(value: ActionInfluenceModel):
-	_model = value
+func set_aim_model(value: ActionInfluenceModel):
+	_aim_model = value
 
 
 func set_row_location(y: float) -> void:

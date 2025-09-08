@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://domph6oksm6me" path="res://objects/action_buttons.gd" id="2_8yn5t"]
 [ext_resource type="Texture2D" uid="uid://doomh0n86fwf4" path="res://graphics/eye_close.svg" id="2_s8r3v"]
 [ext_resource type="Texture2D" uid="uid://6y74xinemfm1" path="res://graphics/eye_open.svg" id="3_6n0in"]
-[ext_resource type="PackedScene" uid="uid://dfts6e1ybq617" path="res://objects/governor_grid.tscn" id="5_6n0in"]
+[ext_resource type="PackedScene" uid="uid://dfts6e1ybq617" path="res://objects/governor_display.tscn" id="5_6n0in"]
 [ext_resource type="Script" uid="uid://c05k50er8ae61" path="res://objects/sensor_display.gd" id="5_ukuu0"]
 [ext_resource type="PackedScene" uid="uid://cs8l67fa7v2dm" path="res://objects/sensor_display_row.tscn" id="6_2ca8i"]
-[ext_resource type="Script" uid="uid://c8hjonlqekegc" path="res://objects/governor_grid.gd" id="6_n2whr"]
+[ext_resource type="Script" uid="uid://c8hjonlqekegc" path="res://objects/governor_display.gd" id="6_n2whr"]
 [ext_resource type="Theme" uid="uid://b17c7kcu4qhib" path="res://objects/bench.tres" id="7_tjv83"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6ynj0"]
@@ -199,12 +199,20 @@ offset_bottom = 48.0
 text = "Sensor"
 label_settings = SubResource("LabelSettings_2ca8i")
 
-[node name="GovernorGrid" parent="." instance=ExtResource("5_6n0in")]
+[node name="GovernorDisplay" parent="." instance=ExtResource("5_6n0in")]
 layout_mode = 0
-offset_left = 1000.0
+offset_left = 500.0
 offset_top = 388.0
 offset_bottom = 1948.0
 script = ExtResource("6_n2whr")
+
+[node name="Label" type="Label" parent="GovernorDisplay"]
+layout_mode = 0
+offset_left = 17.0
+offset_right = 155.0
+offset_bottom = 48.0
+text = "Governor"
+label_settings = SubResource("LabelSettings_2ca8i")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
