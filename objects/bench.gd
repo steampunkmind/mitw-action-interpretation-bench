@@ -2,7 +2,7 @@ extends ColorRect
 
 const DONT_SAVE = "Don't Save"
 
-var _model: ActionInfluenceModel
+var _aim_model: ActionInfluenceModel
 var _is_aim_model: bool = false
 var _is_gam_model: bool = false
 var _model_path: String = ""
@@ -16,15 +16,15 @@ func _ready() -> void:
 	$FrameRateSlider.value = frame_rate
 	$FrameRateValue.text = str(frame_rate)
 	$CloseConfirmationDialog.add_button(DONT_SAVE, false, DONT_SAVE)
-	_set_is_model(false)
+	_set_is_aim_model(false)
 	_set_is_dirty(false)
 	$OpenFileDialog.set_current_dir("models")
 	$SaveFileDialog.set_current_dir("models")
-	_model = ActionInfluenceModel.new()
-	SensorFormula.model = _model # set global var
+	_aim_model = ActionInfluenceModel.new()
+	SensorFormula.model = _aim_model # set global var
 	SensorFormula.action_agent = $ActionButtons # set global var
-	$ActionButtons.set_model(_model)
-	$SensorDisplay.set_model(_model)
+	$ActionButtons.set_model(_aim_model)
+	$SensorDisplay.set_model(_aim_model)
 	$Timer.paused = true
 
 
@@ -61,6 +61,7 @@ func _on_new_button_pressed() -> void:
 
 
 func _on_open_aim_button_pressed() -> void:
+	$OpenFileDialog.set_filters(["*.aim"])
 	$OpenFileDialog.popup()
 
 
@@ -69,13 +70,12 @@ func _on_close_aim_button_pressed() -> void:
 		$CloseConfirmationDialog.popup()
 	else:
 		_set_is_dirty(false)
-		_set_is_model(false)
+		_set_is_aim_model(false)
 
 
 func _on_open_gam_button_pressed() -> void:
-	_is_gam_model = true
-	_reset_interface()
-	print("_on_open_gam_button_pressed")
+	$OpenFileDialog.set_filters(["*.gam"])
+	$OpenFileDialog.popup()
 
 
 func _on_close_gam_button_pressed() -> void:
@@ -89,13 +89,15 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
 	var json = JSON.parse_string(file.get_as_text())
 	file.close()
 	
-	_model.set_action_dicts(json.get('actions') as Array)
-	_model.set_sensor_dicts(json.get('sensors') as Array)
-	$ActionButtons.update_buttons()
-	$SensorDisplay.update_sensors()
-	$ActionButtons.init_action()
-	_set_is_model(true, path)
-
+	if !_is_aim_model:
+		_aim_model.set_action_dicts(json.get('actions') as Array)
+		_aim_model.set_sensor_dicts(json.get('sensors') as Array)
+		$ActionButtons.update_buttons()
+		$SensorDisplay.update_sensors()
+		$ActionButtons.init_action()
+		_set_is_aim_model(true, path)
+	else:
+		print("_on_open_file_dialog_file_selected")
 
 func _on_close_confirmation_dialog_confirmed() -> void:
 	_close_after_save = true
@@ -108,7 +110,7 @@ func _on_close_confirmation_dialog_confirmed() -> void:
 func _on_close_confirmation_dialog_custom_action(action: StringName) -> void:
 	if action == DONT_SAVE:
 		_set_is_dirty(false)
-		_set_is_model(false)
+		_set_is_aim_model(false)
 	else:
 		print("Unknown save confirmation dialog custom action.")
 		
@@ -129,7 +131,7 @@ func _on_save_as_button_pressed() -> void:
 
 
 func _on_save_file_dialog_file_selected(path: String) -> void:
-	_set_is_model(true, path)
+	_set_is_aim_model(true, path)
 	_write_file()
 
 
@@ -139,24 +141,24 @@ func _write_file() -> void:
 	file.store_line(content)
 	_set_is_dirty(false)
 	if _close_after_save:
-		_set_is_model(false)
+		_set_is_aim_model(false)
 	_reset_interface()
 
 
 func get_dict() -> Dictionary:
 	var dict = {}
-	dict.set('actions', _model.get_action_dicts())
-	dict.set('sensors', _model.get_sensor_dicts())
+	dict.set('actions', _aim_model.get_action_dicts())
+	dict.set('sensors', _aim_model.get_sensor_dicts())
 	return dict
 
 
-func _set_is_model(is_model: bool, model_path: String = "") -> void:
-	_is_aim_model = is_model
-	$SubHeader.visible = is_model
+func _set_is_aim_model(is_aim_model: bool, model_path: String = "") -> void:
+	_is_aim_model = is_aim_model
+	$SubHeader.visible = is_aim_model
 	$SubHeader.text = model_path.get_basename().get_file().capitalize()
 	_model_path = model_path
 	_reset_interface()
-	$Timer.paused = !is_model
+	$Timer.paused = !is_aim_model
 
 
 func _get_is_aim_model() -> bool:
@@ -184,7 +186,7 @@ func _set_is_dirty(is_dirty: bool) -> void:
 func _on_edit_actions_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		$ActionButtons.clear_action_buttons()
-		$EditActions.set_actions(_model.get_actions())
+		$EditActions.set_actions(_aim_model.get_actions())
 		$EditActionsButton.text = "Done"
 		_disable_interface()
 		$EditActionsButton.disabled = false
@@ -223,5 +225,5 @@ func _reset_interface() -> void:
 
 
 func _on_eye_button_toggled(toggled_on: bool) -> void:
-	_model.set_edit_mode(toggled_on)
+	_aim_model.set_edit_mode(toggled_on)
 	$ActionButtons.show_hide_buttons()
