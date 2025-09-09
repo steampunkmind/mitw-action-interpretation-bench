@@ -1,5 +1,11 @@
-[gd_scene format=3 uid="uid://dfts6e1ybq617"]
+[gd_scene load_steps=3 format=3 uid="uid://dfts6e1ybq617"]
 
-[node name="GovernorGrid" type="ColorRect"]
-offset_right = 3300.0
+[ext_resource type="Script" uid="uid://c8hjonlqekegc" path="res://objects/governor_display.gd" id="1_gtcb2"]
+[ext_resource type="PackedScene" uid="uid://do42nmm2le4ut" path="res://objects/governor_display_row.tscn" id="2_x1clt"]
+
+[node name="GovernorDisplay" type="ColorRect"]
+offset_right = 2800.0
 offset_bottom = 1560.0
+color = Color(0.862745, 0.862745, 0.862745, 1)
+script = ExtResource("1_gtcb2")
+governor_display_row_template = ExtResource("2_x1clt")

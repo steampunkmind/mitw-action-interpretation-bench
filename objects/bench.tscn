@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4rb4np51o66m"]
+[gd_scene load_steps=13 format=3 uid="uid://b4rb4np51o66m"]
 
 [ext_resource type="Script" uid="uid://bca7xre80o3an" path="res://objects/bench.gd" id="1_3f1fh"]
 [ext_resource type="Script" uid="uid://domph6oksm6me" path="res://objects/action_buttons.gd" id="2_8yn5t"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dfts6e1ybq617" path="res://objects/governor_display.tscn" id="5_6n0in"]
 [ext_resource type="Script" uid="uid://c05k50er8ae61" path="res://objects/sensor_display.gd" id="5_ukuu0"]
 [ext_resource type="PackedScene" uid="uid://cs8l67fa7v2dm" path="res://objects/sensor_display_row.tscn" id="6_2ca8i"]
-[ext_resource type="Script" uid="uid://c8hjonlqekegc" path="res://objects/governor_display.gd" id="6_n2whr"]
 [ext_resource type="Theme" uid="uid://b17c7kcu4qhib" path="res://objects/bench.tres" id="7_tjv83"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6ynj0"]
@@ -203,8 +202,8 @@ label_settings = SubResource("LabelSettings_2ca8i")
 layout_mode = 0
 offset_left = 500.0
 offset_top = 388.0
+offset_right = 3300.0
 offset_bottom = 1948.0
-script = ExtResource("6_n2whr")
 
 [node name="Label" type="Label" parent="GovernorDisplay"]
 layout_mode = 0
