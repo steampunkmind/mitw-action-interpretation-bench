@@ -192,9 +192,9 @@ sensor_display_row_template = ExtResource("6_2ca8i")
 
 [node name="Label" type="Label" parent="SensorDisplay"]
 layout_mode = 0
-offset_left = 17.0
-offset_right = 155.0
-offset_bottom = 48.0
+offset_left = 16.0
+offset_right = 154.0
+offset_bottom = 58.0
 text = "Sensor"
 label_settings = SubResource("LabelSettings_2ca8i")
 
@@ -204,14 +204,6 @@ offset_left = 500.0
 offset_top = 388.0
 offset_right = 3300.0
 offset_bottom = 1948.0
-
-[node name="Label" type="Label" parent="GovernorDisplay"]
-layout_mode = 0
-offset_left = 17.0
-offset_right = 155.0
-offset_bottom = 48.0
-text = "Governor"
-label_settings = SubResource("LabelSettings_2ca8i")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

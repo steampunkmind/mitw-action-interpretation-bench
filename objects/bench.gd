@@ -28,7 +28,7 @@ func _ready() -> void:
 	$ActionButtons.set_aim_model(_aim_model)
 	$SensorDisplay.set_aim_model(_aim_model)
 	_gam_model = GovernorActionModel.new()
-	$GovernorDisplay.set_gam_model(_gam_model)
+	$GovernorDisplay.set_models(_aim_model, _gam_model)
 	$Timer.paused = true
 
 

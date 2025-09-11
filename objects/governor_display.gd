@@ -2,6 +2,7 @@ class_name GovernorDisplay extends ColorRect
 
 @export var governor_display_row_template: PackedScene
 
+var _aim_model: ActionInfluenceModel
 var _gam_model: GovernorActionModel
 var governor_display_rows: Dictionary[String, GovernorDisplayRow]
 
@@ -15,8 +16,9 @@ func _process(delta: float) -> void:
 	pass
 
 
-func set_gam_model(value: GovernorActionModel):
-	_gam_model = value
+func set_models(aim_model: ActionInfluenceModel, gam_model: GovernorActionModel):
+	_aim_model = aim_model
+	_gam_model = gam_model
 
 
 func update_governors() -> void:
@@ -39,7 +41,7 @@ func add_governor_display_rows() -> void:
 		var row = governor_display_row_template.instantiate()
 		row.set_governor(governor)
 		row.set_row_location(row_location)
-		row.set_gam_model(_gam_model)
+		row.set_models(_aim_model, _gam_model)
 		add_child(row)
 		governor_display_rows.set(governor.get_name(), row)
 		row_location = row_location + 58
