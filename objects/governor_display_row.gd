@@ -19,9 +19,15 @@ func _process(delta: float) -> void:
 	pass
 
 
-func set_models(aim_model: ActionInfluenceModel, gam_model: GovernorActionModel):
+func init (aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, governor: Governor, y: float):
 	_aim_model = aim_model
 	_gam_model = gam_model
+	_governor = governor
+	set_name(governor.get_name()) # sets name of node
+	$Name.text = "(" + governor.get_sensor() + ")" + governor.get_name()
+	var p = get_position()
+	p.y = y
+	set_position(p)
 	set_actions(_aim_model.get_actions())
 
 
@@ -31,21 +37,7 @@ func set_actions(value: Array[Action]):
 	for action: Action in _actions:
 		if action.get_visible():
 			var cell = governor_display_cell_template.instantiate()
-			cell.set_models(_aim_model, _gam_model)
-			cell.set_cell_location(x)
-			cell.set_action(action)
+			cell.init(_aim_model, _gam_model, action, _governor, x)
 			add_child(cell)
 			governor_display_cells.set(action.get_name(), cell)
 			x += 78
-
-
-func set_row_location(y: float) -> void:
-	var p = get_position()
-	p.y = y
-	set_position(p)
-
-
-func set_governor(governor: Governor) -> void:
-	_governor = governor
-	set_name(governor.get_name()) # sets name of node
-	$Name.text = governor.get_name()
