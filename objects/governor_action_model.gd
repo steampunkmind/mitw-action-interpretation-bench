@@ -19,11 +19,12 @@ func get_governor_dicts() -> Array:
 	return result
 
 
-func set_governor_dicts(governor_dicts: Array) -> void:
-	fill_governors(governor_dicts)
+func set_governor_dicts(governor_dicts: Array, aim_model: ActionInfluenceModel) -> void:
+	fill_governors(governor_dicts, aim_model)
 
 
-func fill_governors(governor_array: Array) -> void:
+func fill_governors(governor_array: Array, aim_model: ActionInfluenceModel) -> void:
 	_governors.clear()
 	for governor_dict: Dictionary in governor_array:
-		_governors.append(Governor.new(governor_dict.get("name"), governor_dict.get("sensor")))
+		var sensor = aim_model.get_sensor(governor_dict.get("sensor"))
+		_governors.append(Governor.new(governor_dict.get("name"), sensor))

@@ -99,7 +99,7 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
 		$ActionButtons.init_action()
 		_set_is_aim_model(true, path)
 	else:
-		_gam_model.set_governor_dicts(json.get('governors') as Array)
+		_gam_model.set_governor_dicts(json.get('governors') as Array, _aim_model)
 		$GovernorDisplay.update_governors()
 		_set_is_gam_model(true, path)
 

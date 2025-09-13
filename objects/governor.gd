@@ -1,21 +1,30 @@
 class_name Governor extends RefCounted
 
-var _dict = {}
+var _name: String
+var _sensor: Sensor
 
 # Constructor
-func _init(name: String, sensor: String):
-	_dict.set('name', name)
-	_dict.set('sensor', sensor)
+func _init(name: String, sensor: Sensor):
+	_name = name
+	_sensor = sensor
 
 
 func get_name():
-	return _dict.get('name')
+	return _name
 
 
 func get_sensor():
-	return _dict.get('sensor')
+	return _sensor
+
+
+func get_sensor_name() -> String:
+	if _sensor: 
+		return _sensor.get_name()
+	return "NOT FOUND"
 
 
 func get_dict() -> Dictionary:
-	var result = _dict.duplicate(true)
+	var result = {}
+	result.set('name', _name)
+	result.set('sensor', _sensor.get_name())
 	return result
