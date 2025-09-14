@@ -24,7 +24,10 @@ func init (aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, gove
 	_gam_model = gam_model
 	_governor = governor
 	set_name(governor.get_name()) # sets name of node
-	$Name.text = "(" + governor.get_sensor_name() + ")" + governor.get_name()
+	var type = "-" # for temp display of type in name below
+	if governor.is_max_type():
+		type = "+"
+	$Name.text = "(" + governor.get_sensor_name() + " " + type + ")" + governor.get_name()
 	var p = get_position()
 	p.y = y
 	set_position(p)

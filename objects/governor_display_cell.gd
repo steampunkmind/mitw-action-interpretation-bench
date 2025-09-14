@@ -19,6 +19,8 @@ func _process(time_delta: float) -> void:
 		var new_value = _governor.get_sensor().get_value()
 		var change_value = new_value - _delta_value 
 		_delta_value = new_value
+		if _governor.is_max_type():
+			change_value = 0 - change_value # invert value
 		$Value.text = str("%.1f" % change_value)
 		_time_total = 0
 
