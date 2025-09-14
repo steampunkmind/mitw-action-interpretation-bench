@@ -20,6 +20,6 @@ offset_left = 8.0
 offset_top = -2.0
 offset_right = 69.0
 offset_bottom = 43.0
-text = "0"
+text = "0.0"
 label_settings = SubResource("LabelSettings_stghy")
 horizontal_alignment = 1
