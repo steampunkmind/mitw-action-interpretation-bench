@@ -2,6 +2,7 @@ class_name Governor extends RefCounted
 
 var _dict: Dictionary
 var _sensor: Sensor
+var _current_action: Action
 
 # Constructor
 func _init(dict: Dictionary, sensor: Sensor):
@@ -54,3 +55,16 @@ func get_dict() -> Dictionary:
 	var result = _dict.duplicate()
 	result.set('sensor', _sensor.get_name())
 	return result
+
+
+### Action Opinions ###
+func set_action(action: Action) -> void:
+	_current_action = action
+
+
+func get_current_action() -> Action:
+	return _current_action;
+
+
+func is_evaluating_action(action: Action) -> bool:
+	return get_current_action() == action

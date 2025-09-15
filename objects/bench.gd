@@ -55,6 +55,9 @@ func _on_timer_timeout() -> void:
 
 func _on_action_button_pressed(action: Action) -> void:
 	$SensorDisplay.set_action(action)
+	if (action.get_visible()):
+		for governor: Governor in _gam_model.get_governors():
+			governor.set_action(action)
 
 
 ## File Functions ##

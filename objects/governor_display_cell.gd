@@ -15,14 +15,18 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(time_delta: float) -> void:
 	_time_total += time_delta
-	if _time_total > 1:
-		var new_value = _governor.get_sensor().get_value()
-		var change_value = new_value - _delta_value 
-		_delta_value = new_value
-		if _governor.is_max_type():
-			change_value = 0 - change_value # invert value
-		$Value.text = str("%.1f" % change_value)
-		_time_total = 0
+	if _governor.is_evaluating_action(_action):
+		set_color(Color(Color.PEACH_PUFF))
+		if _time_total > 1:
+			var new_value = _governor.get_sensor().get_value()
+			var change_value = new_value - _delta_value 
+			_delta_value = new_value
+			if _governor.is_max_type():
+				change_value = 0 - change_value # invert value
+			$Value.text = str("%.1f" % change_value)
+			_time_total = 0
+	else:
+		set_color(Color(1, 1, 1, 1))
 
 
 func init(aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, action: Action, governor: Governor, x: float):
