@@ -23,3 +23,10 @@ offset_bottom = 43.0
 text = "0.0"
 label_settings = SubResource("LabelSettings_stghy")
 horizontal_alignment = 1
+
+[node name="Border" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 76, 0, 76, 40, 0, 40)
+closed = true
+width = 8.0
+default_color = Color(0.470588, 0.627451, 0.784314, 1)

@@ -26,6 +26,11 @@ func update_governors() -> void:
 	add_governor_display_rows()
 
 
+func update_governor_values() -> void:
+	for governor_display_row: GovernorDisplayRow in governor_display_rows.values():
+		governor_display_row.update_governor_values()
+
+
 func clear_governor_display_rows() -> void:
 	for governor_row: GovernorDisplayRow in governor_display_rows.values():
 		remove_child(governor_row)

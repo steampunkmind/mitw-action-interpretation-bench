@@ -44,3 +44,8 @@ func set_actions(value: Array[Action]):
 			add_child(cell)
 			governor_display_cells.set(action.get_name(), cell)
 			x += 84
+
+
+func update_governor_values() -> void:
+	for governor_display_cell: GovernorDisplayCell in governor_display_cells.values():
+		governor_display_cell.update_governor_values()

@@ -2,12 +2,15 @@ class_name Governor extends RefCounted
 
 var _dict: Dictionary
 var _sensor: Sensor
+var _action_evaluators: Dictionary
 var _current_action: Action
 
 # Constructor
-func _init(dict: Dictionary, sensor: Sensor):
+func _init(dict: Dictionary, sensor: Sensor, aim_model: ActionInfluenceModel):
 	_dict = dict
 	_sensor = sensor
+	for action: Action in aim_model.get_actions():
+		_action_evaluators.set(action, ActionEvaluator.new())
 
 
 func get_name():
@@ -68,3 +71,9 @@ func get_current_action() -> Action:
 
 func is_evaluating_action(action: Action) -> bool:
 	return get_current_action() == action
+
+
+### Action Evaluating ###
+func update_action_evaluation(action: Action) -> float:
+	var action_evaluator = _action_evaluators.get(action)
+	return action_evaluator.get_evaluation_value()

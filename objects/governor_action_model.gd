@@ -27,4 +27,4 @@ func fill_governors(governor_array: Array, aim_model: ActionInfluenceModel) -> v
 	_governors.clear()
 	for governor_dict: Dictionary in governor_array:
 		var sensor = aim_model.get_sensor(governor_dict.get("sensor"))
-		_governors.append(Governor.new(governor_dict, sensor))
+		_governors.append(Governor.new(governor_dict, sensor, aim_model))
