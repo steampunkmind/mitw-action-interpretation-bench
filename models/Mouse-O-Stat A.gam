@@ -5,14 +5,22 @@
 			"sensor": "Temperature",
 			"error_threshold": 75,
 			"error_peak": 95,
-			"error_max": 100
+			"error_max": 100,
+			"evaluator":
+				{
+					"duration": 120
+				}
 		},
 		{
 			"name": "Cold",
 			"sensor": "Temperature",
 			"error_threshold": 65,
 			"error_peak": 25,
-			"error_max": 1000
+			"error_max": 1000,
+			"evaluator":
+				{
+					"duration": 90
+				}
 		}
 	]
 }

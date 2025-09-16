@@ -26,9 +26,9 @@ func update_governors() -> void:
 	add_governor_display_rows()
 
 
-func update_governor_values() -> void:
+func refresh() -> void:
 	for governor_display_row: GovernorDisplayRow in governor_display_rows.values():
-		governor_display_row.update_governor_values()
+		governor_display_row.refresh()
 
 
 func clear_governor_display_rows() -> void:

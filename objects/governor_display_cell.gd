@@ -24,11 +24,10 @@ func init(aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, actio
 	set_position(p)
 
 
-func update_governor_values() -> void:
+func refresh() -> void:
 	if _governor.is_evaluating_action(_action):
 		set_color(Color(Color.PEACH_PUFF))
 		$Border.set_visible(true)
-		_governor.update_action_evaluation(_action)
 		$Value.text = _governor.get_action_evaluation_text(_action)
 	else:
 		set_color(Color(1, 1, 1, 1))

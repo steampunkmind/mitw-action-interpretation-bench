@@ -3,15 +3,14 @@ class_name Governor extends RefCounted
 var _dict: Dictionary
 var _sensor: Sensor
 var _action_evaluators: Dictionary
-var _current_action: Action
-var _previous_sensor_value: float = 0
 
 # Constructor
 func _init(dict: Dictionary, sensor: Sensor, aim_model: ActionInfluenceModel):
 	_dict = dict
 	_sensor = sensor
+	var evaluator = _dict.get("evaluator")
 	for action: Action in aim_model.get_actions():
-		_action_evaluators.set(action, ActionEvaluator.new())
+		_action_evaluators.set(action, ActionEvaluator.new(evaluator))
 
 
 func get_name():
@@ -63,22 +62,21 @@ func get_dict() -> Dictionary:
 
 ### Action Opinions ###
 func set_action(action: Action) -> void:
-	_current_action = action
-
-
-func get_current_action() -> Action:
-	return _current_action;
+	var evaluator = _action_evaluators.get(action)
+	evaluator.start_evaluating()
 
 
 func is_evaluating_action(action: Action) -> bool:
-	return get_current_action() == action
+	var evaluator = _action_evaluators.get(action)
+	return evaluator.is_evaluating()
 
 
 ### Action Evaluating ###
-func update_action_evaluation(action: Action) -> void:
+func update_action_evaluations() -> void:
 	var sensor_value = get_sensor().get_value()
-	_action_evaluators.get(action).update_evaluation(_previous_sensor_value, sensor_value, is_max_type())
-	_previous_sensor_value = sensor_value
+	for action_evaluator: ActionEvaluator in _action_evaluators.values():
+		action_evaluator.update_evaluation(sensor_value, is_max_type())
+
 
 func get_action_evaluation_value(action: Action) -> float:
 	return _action_evaluators.get(action).get_evaluation_value()

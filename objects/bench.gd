@@ -51,7 +51,9 @@ func _on_frame_rate_slider_value_changed(new_value: float) -> void:
 
 func _on_timer_timeout() -> void:
 	$SensorDisplay.update_sensor_values()
-	$GovernorDisplay.update_governor_values()
+	for governor: Governor in _gam_model.get_governors():
+		governor.update_action_evaluations()
+	$GovernorDisplay.refresh()
 
 
 func _on_action_button_pressed(action: Action) -> void:

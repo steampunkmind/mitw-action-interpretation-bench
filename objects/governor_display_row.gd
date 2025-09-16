@@ -46,6 +46,6 @@ func set_actions(value: Array[Action]):
 			x += 84
 
 
-func update_governor_values() -> void:
+func refresh() -> void:
 	for governor_display_cell: GovernorDisplayCell in governor_display_cells.values():
-		governor_display_cell.update_governor_values()
+		governor_display_cell.refresh()
