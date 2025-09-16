@@ -4,6 +4,7 @@ var _dict: Dictionary
 var _sensor: Sensor
 var _action_evaluators: Dictionary
 var _current_action: Action
+var _previous_sensor_value: float = 0
 
 # Constructor
 func _init(dict: Dictionary, sensor: Sensor, aim_model: ActionInfluenceModel):
@@ -74,6 +75,14 @@ func is_evaluating_action(action: Action) -> bool:
 
 
 ### Action Evaluating ###
-func update_action_evaluation(action: Action) -> float:
-	var action_evaluator = _action_evaluators.get(action)
-	return action_evaluator.get_evaluation_value()
+func update_action_evaluation(action: Action) -> void:
+	var sensor_value = get_sensor().get_value()
+	_action_evaluators.get(action).update_evaluation(_previous_sensor_value, sensor_value, is_max_type())
+	_previous_sensor_value = sensor_value
+
+func get_action_evaluation_value(action: Action) -> float:
+	return _action_evaluators.get(action).get_evaluation_value()
+
+
+func get_action_evaluation_text(action: Action) -> String:
+	return _action_evaluators.get(action).get_evaluation_text()

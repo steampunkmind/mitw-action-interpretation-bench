@@ -17,7 +17,6 @@ func _process(time_delta: float) -> void:
 
 func init(aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, action: Action, governor: Governor, x: float):
 	_aim_model = aim_model
-	_gam_model = gam_model
 	_action = action
 	_governor = governor
 	var p = get_position()
@@ -29,8 +28,8 @@ func update_governor_values() -> void:
 	if _governor.is_evaluating_action(_action):
 		set_color(Color(Color.PEACH_PUFF))
 		$Border.set_visible(true)
-		var evaluation_value = _governor.update_action_evaluation(_action)
-		$Value.text = str("%.1f" % (evaluation_value))
+		_governor.update_action_evaluation(_action)
+		$Value.text = _governor.get_action_evaluation_text(_action)
 	else:
 		set_color(Color(1, 1, 1, 1))
 		$Border.set_visible(false)
