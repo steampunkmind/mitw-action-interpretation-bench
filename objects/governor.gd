@@ -10,7 +10,8 @@ func _init(dict: Dictionary, sensor: Sensor, aim_model: ActionInfluenceModel):
 	_sensor = sensor
 	var evaluator = _dict.get("evaluator")
 	for action: Action in aim_model.get_actions():
-		_action_evaluators.set(action, ActionEvaluator.new(evaluator))
+		if action.get_visible():
+			_action_evaluators.set(action, ActionEvaluator.new(evaluator))
 
 
 func get_name():
