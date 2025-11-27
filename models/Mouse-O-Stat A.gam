@@ -8,7 +8,9 @@
 			"error_max": 100,
 			"evaluator":
 				{
-					"duration": 120
+					"duration": 120,
+					"retain": 30,
+					"slope_percent": 100
 				}
 		},
 		{
@@ -19,7 +21,9 @@
 			"error_max": 1000,
 			"evaluator":
 				{
-					"duration": 90
+					"duration": 60,
+					"retain": 30,
+					"slope_percent": -50
 				}
 		}
 	]
