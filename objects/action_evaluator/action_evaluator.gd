@@ -31,6 +31,7 @@ func update_evaluation(new_value: float, is_max_type: bool) -> void:
 		if is_max_type:
 			frame_value = 0 - frame_value # invert value
 	
+		_evaluation_frames.append(frame_value)
 		if (_evaluation_frames.size() > (_duration + _retain)):
 			_evaluation_frames.remove_at(0)
 		var slope = 0.0
