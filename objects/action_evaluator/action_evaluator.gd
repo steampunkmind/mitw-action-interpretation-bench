@@ -34,7 +34,7 @@ func update_evaluation(new_value: float, is_max_type: bool) -> void:
 		_evaluation_frames.append(frame_value)
 		if (_evaluation_frames.size() > (_duration + _retain)):
 			_evaluation_frames.remove_at(0)
-		var slope = 0.0
+		var slope = 0.0 - (_slope_percent/2)
 		var slope_delta = _slope_percent/_evaluation_frames.size()
 		var sum_value = 0.0 
 		for value in _evaluation_frames:
