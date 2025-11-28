@@ -85,3 +85,7 @@ func get_action_evaluation_value(action: Action) -> float:
 
 func get_action_evaluation_text(action: Action) -> String:
 	return _action_evaluators.get(action).get_evaluation_text()
+
+
+func get_action_evaluation_progress(action: Action) -> float:
+	return _action_evaluators.get(action).get_evaluation_progress()

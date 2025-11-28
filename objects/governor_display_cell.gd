@@ -4,10 +4,11 @@ var _aim_model: ActionInfluenceModel
 var _gam_model: GovernorActionModel
 var _action: Action
 var _governor: Governor
+var _max_progress: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	_max_progress = size.x - ($Border.width/2)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,6 +30,10 @@ func refresh() -> void:
 		set_color(Color(Color.PEACH_PUFF))
 		$Border.set_visible(true)
 		$Value.text = _governor.get_action_evaluation_text(_action)
+		$DurationLine.set_visible(true)
+		$DurationLine.points[1].x = _max_progress * _governor.get_action_evaluation_progress(_action)
+		
 	else:
 		set_color(Color(1, 1, 1, 1))
 		$Border.set_visible(false)
+		$DurationLine.set_visible(false)

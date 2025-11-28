@@ -28,5 +28,11 @@ horizontal_alignment = 1
 visible = false
 points = PackedVector2Array(0, 0, 76, 0, 76, 40, 0, 40)
 closed = true
-width = 8.0
+width = 4.0
 default_color = Color(0.470588, 0.627451, 0.784314, 1)
+
+[node name="DurationLine" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(2, 36, 74, 36)
+width = 4.0
+default_color = Color(0.768627, 0.12549, 0.12549, 1)
