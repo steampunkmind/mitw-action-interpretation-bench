@@ -33,6 +33,12 @@ default_color = Color(0.470588, 0.627451, 0.784314, 1)
 
 [node name="DurationLine" type="Line2D" parent="."]
 visible = false
-points = PackedVector2Array(2, 36, 74, 36)
+points = PackedVector2Array(2, 36, 70, 36)
 width = 4.0
 default_color = Color(0.768627, 0.12549, 0.12549, 1)
+
+[node name="InfluenceLine" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(72, 38, 72, 2)
+width = 4.0
+default_color = Color(0.12549, 0.768627, 0.12549, 1)

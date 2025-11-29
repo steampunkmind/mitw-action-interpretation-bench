@@ -9,8 +9,25 @@
 			"evaluator":
 				{
 					"duration": 120,
-					"retain": 30,
-					"slope_percent": 100
+					"retain": 60,
+					"influences":
+						[
+							{
+								"duration": 30,
+								"start": 50,
+								"end": 150
+							},
+							{
+								"duration": 60,
+								"start": 200,
+								"end": 200
+							},
+							{
+								"duration": 30,
+								"start": 150,
+								"end": 50
+							}
+						]
 				}
 		},
 		{
@@ -22,8 +39,7 @@
 			"evaluator":
 				{
 					"duration": 60,
-					"retain": 30,
-					"slope_percent": -50
+					"retain": 20
 				}
 		}
 	]

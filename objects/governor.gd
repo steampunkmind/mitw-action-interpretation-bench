@@ -89,3 +89,7 @@ func get_action_evaluation_text(action: Action) -> String:
 
 func get_action_evaluation_progress(action: Action) -> float:
 	return _action_evaluators.get(action).get_evaluation_progress()
+
+
+func get_action_evaluation_influence(action: Action) -> float:
+	return _action_evaluators.get(action).get_evaluation_influence()
