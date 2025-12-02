@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://do42nmm2le4ut"]
+[gd_scene load_steps=5 format=3 uid="uid://do42nmm2le4ut"]
 
 [ext_resource type="Script" uid="uid://0twda0xia3wc" path="res://objects/governor_display_row.gd" id="1_by4yu"]
 [ext_resource type="LabelSettings" uid="uid://csquvfsh3qxcv" path="res://objects/blue_label.tres" id="2_nbofd"]
 [ext_resource type="PackedScene" uid="uid://cgvcutxv85aho" path="res://objects/governor_display_cell.tscn" id="2_rv1hp"]
+[ext_resource type="PackedScene" uid="uid://c22l3s7w3x7v6" path="res://objects/comparator/comparator.tscn" id="4_fqjvj"]
 
 [node name="GovernorDisplayRow" type="ColorRect"]
 offset_left = 8.0
@@ -14,7 +15,19 @@ governor_display_cell_template = ExtResource("2_rv1hp")
 [node name="Name" type="Label" parent="."]
 layout_mode = 0
 offset_left = 8.0
-offset_right = 101.0
+offset_right = 408.0
 offset_bottom = 45.0
 text = "Name"
 label_settings = ExtResource("2_nbofd")
+
+[node name="Comparator" parent="." instance=ExtResource("4_fqjvj")]
+layout_mode = 0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 1200.0
+offset_top = 0.0
+offset_right = 1248.0
+offset_bottom = 800.0
+grow_vertical = 1
+rotation = 1.5708

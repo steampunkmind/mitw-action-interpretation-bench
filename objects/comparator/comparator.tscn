@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://c22l3s7w3x7v6"]
+
+[ext_resource type="Script" uid="uid://dsf5d223s4sd2" path="res://objects/comparator/comparator.gd" id="1_2yn73"]
+[ext_resource type="LabelSettings" uid="uid://b5mdxehagvn8n" path="res://objects/comparator/comparatorValue.tres" id="2_dgqp1"]
+
+[sub_resource type="Gradient" id="Gradient_dgqp1"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0.5, 0.75)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ltvnq"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_dgqp1")
+
+[node name="Comparator" type="ColorRect"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -1950.0
+offset_right = 48.0
+offset_bottom = -1150.0
+grow_vertical = 0
+script = ExtResource("1_2yn73")
+
+[node name="ErrorColor" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 48.0
+offset_top = 100.0
+offset_right = 648.0
+offset_bottom = 148.0
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_ltvnq")
+
+[node name="ErrorValue" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 800.0
+offset_right = 101.0
+offset_bottom = 846.0
+rotation = 4.71239
+text = "0"
+label_settings = ExtResource("2_dgqp1")
+horizontal_alignment = 1
+
+[node name="ErrorThreshold" type="Line2D" parent="."]
+points = PackedVector2Array(48, 400, 0, 400)
+default_color = Color(0.882353, 0.686275, 0.686275, 1)
+
+[node name="ErrorPeak" type="Line2D" parent="."]
+points = PackedVector2Array(48, 550, 0, 550)
+default_color = Color(0.666667, 0.333333, 0.333333, 1)
+
+[node name="PerceptionLine" type="Line2D" parent="."]
+points = PackedVector2Array(48, 250, 0, 250)
+width = 14.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="PerceptionValue" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 100.0
+offset_right = 101.0
+offset_bottom = 146.0
+rotation = 4.71239
+text = "0"
+label_settings = ExtResource("2_dgqp1")
+horizontal_alignment = 1
+
+[node name="DivLine1" type="Line2D" parent="."]
+position = Vector2(0, 800)
+points = PackedVector2Array(0, 0, 48, 0)
+width = 4.0
+default_color = Color(0.862745, 0.862745, 0.862745, 1)
+
+[node name="DivLine2" type="Line2D" parent="."]
+position = Vector2(0, 700)
+points = PackedVector2Array(0, 0, 48, 0)
+width = 4.0
+default_color = Color(0.862745, 0.862745, 0.862745, 1)
+
+[node name="DivLine3" type="Line2D" parent="."]
+position = Vector2(0, 100)
+points = PackedVector2Array(0, 0, 48, 0)
+width = 4.0
+default_color = Color(0.862745, 0.862745, 0.862745, 1)
+
+[node name="DivLine4" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 48, 0)
+width = 4.0
+default_color = Color(0.862745, 0.862745, 0.862745, 1)

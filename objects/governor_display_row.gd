@@ -36,7 +36,7 @@ func init (aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, gove
 
 func set_actions(value: Array[Action]):
 	_actions = value
-	var x = 400
+	var x = $Name.size.x + $Comparator.size.y # Comparator is rotated 90%
 	for action: Action in _actions:
 		if action.get_visible():
 			var cell = governor_display_cell_template.instantiate()
