@@ -85,6 +85,7 @@ width = 4.0
 default_color = Color(0.862745, 0.862745, 0.862745, 1)
 
 [node name="DivLine4" type="Line2D" parent="."]
+position = Vector2(0, -16)
 points = PackedVector2Array(0, 0, 48, 0)
-width = 4.0
+width = 32.0
 default_color = Color(0.862745, 0.862745, 0.862745, 1)
