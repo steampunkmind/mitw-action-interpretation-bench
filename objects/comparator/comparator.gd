@@ -55,7 +55,7 @@ func set_perception_value(value: float) -> float:
 		value = perception_min
 	
 	set_perception_line(calc_perception_y(value))
-	$PerceptionValue.text = str(value)
+	$PerceptionValue.text = str("%.1f" % value)
 	
 	var error_value = 0
 	if (error_threshold >= error_peak):

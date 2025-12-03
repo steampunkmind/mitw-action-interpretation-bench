@@ -34,9 +34,9 @@ texture = SubResource("GradientTexture1D_ltvnq")
 [node name="ErrorValue" type="Label" parent="."]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 800.0
+offset_top = 100.0
 offset_right = 101.0
-offset_bottom = 846.0
+offset_bottom = 146.0
 rotation = 4.71239
 text = "0"
 label_settings = ExtResource("2_dgqp1")
@@ -58,9 +58,9 @@ default_color = Color(0, 0, 0, 1)
 [node name="PerceptionValue" type="Label" parent="."]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 100.0
+offset_top = 800.0
 offset_right = 101.0
-offset_bottom = 146.0
+offset_bottom = 846.0
 rotation = 4.71239
 text = "0"
 label_settings = ExtResource("2_dgqp1")
