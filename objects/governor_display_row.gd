@@ -32,6 +32,7 @@ func init (aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, gove
 	p.y = y
 	set_position(p)
 	set_actions(_aim_model.get_actions())
+	$Comparator.init(governor)
 
 
 func set_actions(value: Array[Action]):

@@ -64,7 +64,7 @@
 	"sensors": [
 		{
 			"max": 100.0,
-			"min": 40.0,
+			"min": 0.0,
 			"name": "Temperature",
 			"value": 70.0
 		}

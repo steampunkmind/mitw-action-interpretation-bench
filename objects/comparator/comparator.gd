@@ -11,6 +11,17 @@ extends ColorRect
 var top_margin: float = 100
 var bottom_margin: float = 100
 
+func init(governor) -> void:
+	var sensor = governor.get_sensor()
+	perception_value = sensor.get_value()
+	perception_max = sensor.get_max()
+	perception_min = sensor.get_min()
+	
+	error_threshold = governor.error_threshold()
+	error_peak = governor.error_peak()
+	error_max = governor.error_max()
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_error_threshold_line()
