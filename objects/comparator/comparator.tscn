@@ -52,7 +52,7 @@ default_color = Color(0.666667, 0.333333, 0.333333, 1)
 
 [node name="PerceptionLine" type="Line2D" parent="."]
 points = PackedVector2Array(48, 250, 0, 250)
-width = 14.0
+width = 12.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="PerceptionValue" type="Label" parent="."]
@@ -69,19 +69,19 @@ horizontal_alignment = 1
 [node name="DivLine1" type="Line2D" parent="."]
 position = Vector2(0, 800)
 points = PackedVector2Array(0, 0, 48, 0)
-width = 4.0
+width = 6.0
 default_color = Color(0.862745, 0.862745, 0.862745, 1)
 
 [node name="DivLine2" type="Line2D" parent="."]
-position = Vector2(0, 700)
+position = Vector2(0, 703)
 points = PackedVector2Array(0, 0, 48, 0)
-width = 4.0
+width = 6.0
 default_color = Color(0.862745, 0.862745, 0.862745, 1)
 
 [node name="DivLine3" type="Line2D" parent="."]
-position = Vector2(0, 100)
+position = Vector2(0, 97)
 points = PackedVector2Array(0, 0, 48, 0)
-width = 4.0
+width = 6.0
 default_color = Color(0.862745, 0.862745, 0.862745, 1)
 
 [node name="DivLine4" type="Line2D" parent="."]

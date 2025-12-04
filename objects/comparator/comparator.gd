@@ -91,12 +91,12 @@ func error_value(value: float) -> float:
 func calc_perception_y(value: float) -> float:
 	var container_y = get_size().y
 	var ratio = (container_y - top_margin - bottom_margin)/(perception_max - perception_min)
-	return container_y - bottom_margin - (value * ratio)
+	return container_y - bottom_margin - (value * ratio) + (perception_min * ratio)
 	
 	
 func calc_perception_percent(value: float) -> float:
 	var perception_range = perception_max-perception_min
-	return (perception_range - value)/perception_range
+	return (perception_range - (value - perception_min))/perception_range
 	
 	
 func set_line_y(line: Line2D, value: float, index: int) -> void:
