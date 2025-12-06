@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://b4rb4np51o66m"]
 
 [ext_resource type="Script" uid="uid://bca7xre80o3an" path="res://objects/bench.gd" id="1_3f1fh"]
-[ext_resource type="Script" uid="uid://domph6oksm6me" path="res://objects/action_buttons.gd" id="2_8yn5t"]
+[ext_resource type="Script" uid="uid://domph6oksm6me" path="res://objects/action_display.gd" id="2_8yn5t"]
 [ext_resource type="Texture2D" uid="uid://doomh0n86fwf4" path="res://graphics/eye_close.svg" id="2_s8r3v"]
 [ext_resource type="Texture2D" uid="uid://6y74xinemfm1" path="res://graphics/eye_open.svg" id="3_6n0in"]
 [ext_resource type="PackedScene" uid="uid://b1mln0biebw6w" path="res://objects/action_panel.tscn" id="5_2ca8i"]
@@ -166,7 +166,7 @@ offset_bottom = 166.0
 text = "0"
 label_settings = SubResource("LabelSettings_a5qnj")
 
-[node name="ActionButtons" type="ColorRect" parent="."]
+[node name="ActionDisplay" type="ColorRect" parent="."]
 layout_mode = 0
 offset_top = 160.0
 offset_right = 3300.0
@@ -174,7 +174,7 @@ offset_bottom = 360.0
 script = ExtResource("2_8yn5t")
 action_panel_template = ExtResource("5_2ca8i")
 
-[node name="ActionButtonTemplate" type="Button" parent="ActionButtons"]
+[node name="ActionButtonTemplate" type="Button" parent="ActionDisplay"]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
@@ -244,7 +244,7 @@ dialog_text = "
 [connection signal="toggled" from="EditActionsButton" to="." method="_on_edit_actions_button_toggled"]
 [connection signal="toggled" from="EyeButton" to="." method="_on_eye_button_toggled"]
 [connection signal="value_changed" from="FrameRateSlider" to="." method="_on_frame_rate_slider_value_changed"]
-[connection signal="action_button_pressed" from="ActionButtons" to="." method="_on_action_button_pressed"]
+[connection signal="action_button_pressed" from="ActionDisplay" to="." method="_on_action_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="file_selected" from="OpenFileDialog" to="." method="_on_open_file_dialog_file_selected"]
 [connection signal="file_selected" from="SaveFileDialog" to="." method="_on_save_file_dialog_file_selected"]
