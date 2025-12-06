@@ -5,10 +5,12 @@ signal action_button_pressed
 
 @export var action_array: Array[Dictionary]
 @export var action_button_template: Button
+@export var action_panel_template: PackedScene
 
 var _aim_model: ActionInfluenceModel
 var new_button_location
 var action_buttons: Array[Button]
+var action_panels: Array[ActionPanel]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,6 +50,9 @@ func clear_action_buttons():
 	for action_button: Button in action_buttons:
 		remove_child(action_button)
 	action_buttons.clear()
+	for action_panel: ActionPanel in action_panels:
+		remove_child(action_panel)
+	action_panels.clear()
 
 
 func add_action_buttons():
@@ -59,24 +64,35 @@ func add_action_buttons():
 func add_action_button(action: Action) -> void:
 	var button = $ActionButtonTemplate.duplicate(1)
 	var button_margin = button.position.x
-	button.name = action.get_name()
+	button.name = action.get_name() + "_button"
 	button.text = action.get_name()
 	button.offset_left = new_button_location
 	button.pressed.connect(_action_button_pressed.bind(action))
 	add_child(button)
 	action_buttons.append(button)
 	button.visible = true
+	
+	var panel = action_panel_template.instantiate()
+	var panel_position = Vector2(new_button_location, (button.size.y * button.get_scale().y))
+	panel.init(panel_position, (button.size.x * button.get_scale().x), action)
+	panel.name = action.get_name() + "_panel"
+	add_child(panel)
+	action_panels.append(panel)
+	
 	new_button_location = button.position.x + (button.size.x * button.get_scale().x) + button_margin
 
 
 func show_hide_buttons():
 	for action: Action in _aim_model.get_actions():
 		if !action.get_visible():
-			var child = find_child(action.get_name(), false, false)
+			var button = find_child(action.get_name() + "_button", false, false)
+			var panel = find_child(action.get_name() + "_panel", false, false)
 			if _aim_model.get_edit_mode():
-				child.show()
+				button.show()
+				panel.show()
 			else:
-				child.hide()
+				button.hide()
+				panel.hide()
 
 
 ### Action Agent functions ###

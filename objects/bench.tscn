@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4rb4np51o66m"]
+[gd_scene load_steps=14 format=3 uid="uid://b4rb4np51o66m"]
 
 [ext_resource type="Script" uid="uid://bca7xre80o3an" path="res://objects/bench.gd" id="1_3f1fh"]
 [ext_resource type="Script" uid="uid://domph6oksm6me" path="res://objects/action_buttons.gd" id="2_8yn5t"]
 [ext_resource type="Texture2D" uid="uid://doomh0n86fwf4" path="res://graphics/eye_close.svg" id="2_s8r3v"]
 [ext_resource type="Texture2D" uid="uid://6y74xinemfm1" path="res://graphics/eye_open.svg" id="3_6n0in"]
+[ext_resource type="PackedScene" uid="uid://b1mln0biebw6w" path="res://objects/action_panel.tscn" id="5_2ca8i"]
 [ext_resource type="PackedScene" uid="uid://dfts6e1ybq617" path="res://objects/governor_display.tscn" id="5_6n0in"]
 [ext_resource type="Script" uid="uid://c05k50er8ae61" path="res://objects/sensor_display.gd" id="5_ukuu0"]
 [ext_resource type="PackedScene" uid="uid://cs8l67fa7v2dm" path="res://objects/sensor_display_row.tscn" id="6_2ca8i"]
@@ -171,6 +172,7 @@ offset_top = 160.0
 offset_right = 3300.0
 offset_bottom = 360.0
 script = ExtResource("2_8yn5t")
+action_panel_template = ExtResource("5_2ca8i")
 
 [node name="ActionButtonTemplate" type="Button" parent="ActionButtons"]
 layout_mode = 0
