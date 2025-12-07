@@ -80,11 +80,17 @@ func update_action_evaluations() -> void:
 
 
 func get_action_evaluation_value(action: Action) -> float:
-	return _action_evaluators.get(action).get_evaluation_value()
+	var evaluator = _action_evaluators.get(action)
+	if evaluator: # hidden actions do not have evaluators
+		return evaluator.get_evaluation_value()
+	return 0.0
 
 
 func get_action_evaluation_text(action: Action) -> String:
-	return _action_evaluators.get(action).get_evaluation_text()
+	var evaluator = _action_evaluators.get(action)
+	if evaluator: # hidden actions do not have evaluators
+		return evaluator.get_evaluation_text()
+	return "NA"
 
 
 func get_action_evaluation_progress(action: Action) -> float:

@@ -24,9 +24,8 @@ func _process(delta: float) -> void:
 
 
 func refresh() -> void:
-	var value = 0.98
-	#THIS CAUSES AN ERROR: 
-	#for governor: Governor in _gam_model.get_governors():
-	#	value += governor.get_action_evaluation_value(_action)
+	var value = 0.0
+	for governor: Governor in _gam_model.get_governors():
+		value += governor.get_action_evaluation_value(_action)
 		
 	$Total.text = str("%.1f" % (value*100))
