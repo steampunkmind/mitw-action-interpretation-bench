@@ -1,4 +1,4 @@
-class_name ActionButtons
+class_name ActionDisplay
 extends ColorRect
 
 signal action_button_pressed
@@ -8,6 +8,7 @@ signal action_button_pressed
 @export var action_panel_template: PackedScene
 
 var _aim_model: ActionInfluenceModel
+var _gam_model: GovernorActionModel
 var new_button_location
 var action_buttons: Array[Button]
 var action_panels: Array[ActionPanel]
@@ -22,8 +23,9 @@ func _process(delta: float) -> void:
 	pass
 
 
-func set_aim_model(value: ActionInfluenceModel):
-	_aim_model = value
+func set_models(aim_model: ActionInfluenceModel,  gam_model: GovernorActionModel):
+	_aim_model = aim_model
+	_gam_model = gam_model
 
 
 func update_buttons():
@@ -74,7 +76,7 @@ func add_action_button(action: Action) -> void:
 	
 	var panel = action_panel_template.instantiate()
 	var panel_position = Vector2(new_button_location, (button.size.y * button.get_scale().y))
-	panel.init(panel_position, (button.size.x * button.get_scale().x), action)
+	panel.init(panel_position, (button.size.x * button.get_scale().x), _gam_model, action)
 	panel.name = action.get_name() + "_panel"
 	add_child(panel)
 	action_panels.append(panel)
@@ -93,6 +95,11 @@ func show_hide_buttons():
 			else:
 				button.hide()
 				panel.hide()
+
+
+func refresh() -> void:
+	for action_panel: ActionPanel in action_panels:
+		action_panel.refresh()
 
 
 ### Action Agent functions ###

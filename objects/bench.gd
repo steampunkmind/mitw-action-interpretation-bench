@@ -23,11 +23,11 @@ func _ready() -> void:
 	$OpenFileDialog.set_current_dir("models")
 	$SaveFileDialog.set_current_dir("models")
 	_aim_model = ActionInfluenceModel.new()
-	SensorFormula.model = _aim_model # set global var
-	SensorFormula.action_agent = $ActionButtons # set global var
-	$ActionButtons.set_aim_model(_aim_model)
-	$SensorDisplay.set_aim_model(_aim_model)
 	_gam_model = GovernorActionModel.new()
+	SensorFormula.model = _aim_model # set global var
+	SensorFormula.action_agent = $ActionDisplay # set global var
+	$ActionDisplay.set_models(_aim_model, _gam_model)
+	$SensorDisplay.set_aim_model(_aim_model)
 	$GovernorDisplay.set_models(_aim_model, _gam_model)
 	$Timer.paused = true
 
@@ -54,7 +54,7 @@ func _on_timer_timeout() -> void:
 	for governor: Governor in _gam_model.get_governors():
 		governor.update_action_evaluations()
 	$GovernorDisplay.refresh()
-
+	$ActionDisplay.refresh()
 
 func _on_action_button_pressed(action: Action) -> void:
 	$SensorDisplay.set_action(action)
@@ -65,9 +65,9 @@ func _on_action_button_pressed(action: Action) -> void:
 
 ## File Functions ##
 func _on_new_button_pressed() -> void:
-	$ActionButtons.set_new_model()
+	$ActionDisplay.set_new_model()
 	$SensorDisplay.set_new_model()
-	$ActionButtons.init_action()
+	$ActionDisplay.init_action()
 
 
 func _on_open_aim_button_pressed() -> void:
@@ -100,9 +100,9 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
 	if !_is_aim_model:
 		_aim_model.set_action_dicts(json.get('actions') as Array)
 		_aim_model.set_sensor_dicts(json.get('sensors') as Array)
-		$ActionButtons.update_buttons()
+		$ActionDisplay.update_buttons()
 		$SensorDisplay.update_sensors()
-		$ActionButtons.init_action()
+		$ActionDisplay.init_action()
 		_set_is_aim_model(true, path)
 	else:
 		_gam_model.set_governor_dicts(json.get('governors') as Array, _aim_model)
@@ -207,13 +207,13 @@ func _set_is_dirty(is_dirty: bool) -> void:
 ## Edit Actions ##
 func _on_edit_actions_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		$ActionButtons.clear_action_buttons()
+		$ActionDisplay.clear_action_buttons()
 		$EditActions.set_actions(_aim_model.get_actions())
 		$EditActionsButton.text = "Done"
 		_disable_interface()
 		$EditActionsButton.disabled = false
 	else:
-		$ActionButtons.update_buttons();
+		$ActionDisplay.update_buttons();
 		$EditActions.clear_edit_action_rows()
 		$EditActionsButton.text = "Edit Actions"
 		_reset_interface()
@@ -222,7 +222,7 @@ func _on_edit_actions_button_toggled(toggled_on: bool) -> void:
 
 
 func _disable_interface() -> void:
-	$ActionButtons.visible = false
+	$ActionDisplay.visible = false
 	$SensorDisplay.visible = false
 	$GovernorDisplay.visible = false
 	$NewButton.disabled = true
@@ -235,7 +235,7 @@ func _disable_interface() -> void:
 
 
 func _reset_interface() -> void:
-	$ActionButtons.visible = _is_aim_model
+	$ActionDisplay.visible = _is_aim_model
 	$SensorDisplay.visible = _is_aim_model
 	$GovernorDisplay.visible = _is_gam_model
 	$NewButton.disabled = _is_aim_model
@@ -250,4 +250,4 @@ func _reset_interface() -> void:
 
 func _on_eye_button_toggled(toggled_on: bool) -> void:
 	_aim_model.set_edit_mode(toggled_on)
-	$ActionButtons.show_hide_buttons()
+	$ActionDisplay.show_hide_buttons()
