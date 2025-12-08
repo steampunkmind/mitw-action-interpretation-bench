@@ -8,10 +8,12 @@ extends ColorRect
 @export var error_peak = 25
 @export var error_max = 1000
 
+var _governor: Governor
 var top_margin: float = 100
 var bottom_margin: float = 100
 
 func init(governor) -> void:
+	_governor = governor
 	var sensor = governor.get_sensor()
 	perception_value = sensor.get_value()
 	perception_max = sensor.get_max()
@@ -59,7 +61,7 @@ func _process(_delta: float) -> void:
 	pass
 	
 	
-func set_perception_value(value: float) -> float:
+func set_perception_value(value: float) -> void:
 	if (value > perception_max):
 		value = perception_max
 	elif (value < perception_min):
@@ -81,7 +83,8 @@ func set_perception_value(value: float) -> float:
 			error_value = error_value(value)
 		
 	$ErrorValue.text = str("%.1f" % error_value)
-	return error_value
+	_governor.set_error_value(error_value)
+	
 	
 func error_value(value: float) -> float:
 	return error_max * (value - error_threshold)/(error_peak - error_threshold)

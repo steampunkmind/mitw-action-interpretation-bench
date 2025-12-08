@@ -3,6 +3,7 @@ class_name Governor extends RefCounted
 var _dict: Dictionary
 var _sensor: Sensor
 var _action_evaluators: Dictionary
+var _error_value
 
 # Constructor
 func _init(dict: Dictionary, sensor: Sensor, aim_model: ActionInfluenceModel):
@@ -59,6 +60,23 @@ func get_dict() -> Dictionary:
 	var result = _dict.duplicate()
 	result.set('sensor', _sensor.get_name())
 	return result
+
+
+func set_error_value(error_value: float):
+	_error_value = error_value
+
+
+func get_error_value() -> float:
+	return _error_value
+
+
+func get_votes(action: Action) -> float:
+	var evaluator = _action_evaluators.get(action)
+	if evaluator:
+		var evaluation_value = evaluator.get_evaluation_value()
+		if evaluation_value: 
+			return evaluation_value * _error_value * 100
+	return 0.0
 
 
 ### Action Opinions ###

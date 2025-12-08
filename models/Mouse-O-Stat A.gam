@@ -5,7 +5,7 @@
 			"sensor": "Temperature",
 			"error_threshold": 80,
 			"error_peak": 100,
-			"error_max": 120,
+			"error_max": 1,
 			"evaluator":
 				{
 					"duration": 120,
@@ -35,7 +35,7 @@
 			"sensor": "Temperature",
 			"error_threshold": 60,
 			"error_peak": 20,
-			"error_max": 120,
+			"error_max": 1,
 			"evaluator":
 				{
 					"duration": 60,

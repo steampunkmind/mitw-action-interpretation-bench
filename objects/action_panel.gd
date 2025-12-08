@@ -24,8 +24,12 @@ func _process(delta: float) -> void:
 
 
 func refresh() -> void:
-	var value = 0.0
+	var total = 0.0
+	var votes = 0.0
 	for governor: Governor in _gam_model.get_governors():
-		value += governor.get_action_evaluation_value(_action)
-		
-	$Total.text = str("%.1f" % (value*100))
+		total += governor.get_action_evaluation_value(_action)
+		if governor.get_error_value() > 0:
+			votes += governor.get_votes(_action)
+			
+	$Total.text = str("%.1f" % (total*100))
+	$Votes.text = str("%.1f" % (votes))
