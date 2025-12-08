@@ -76,7 +76,7 @@ func add_action_button(action: Action) -> void:
 	
 	if action.get_visible():
 		var panel = action_panel_template.instantiate()
-		var panel_position = Vector2(new_button_location, (button.size.y * button.get_scale().y))
+		var panel_position = Vector2(new_button_location, button.position.y + (button.size.y * button.get_scale().y))
 		panel.init(panel_position, (button.size.x * button.get_scale().x), _gam_model, action)
 		panel.name = action.get_name() + "_panel"
 		add_child(panel)
