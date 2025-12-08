@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4rb4np51o66m"]
+[gd_scene load_steps=15 format=3 uid="uid://b4rb4np51o66m"]
 
 [ext_resource type="Script" uid="uid://bca7xre80o3an" path="res://objects/bench.gd" id="1_3f1fh"]
 [ext_resource type="Script" uid="uid://domph6oksm6me" path="res://objects/action_display.gd" id="2_8yn5t"]
@@ -19,8 +19,13 @@ font_size = 48
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_a5qnj"]
+line_spacing = 0.0
 font_size = 48
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rpy7a"]
+font_size = 48
+font_color = Color(0.784314, 0.188235, 0.188235, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2ca8i"]
 font_size = 42
@@ -143,8 +148,8 @@ layout_mode = 0
 offset_left = 24.0
 offset_top = 93.0
 offset_right = 195.0
-offset_bottom = 166.0
-text = "Speed"
+offset_bottom = 160.0
+text = "Speed:"
 label_settings = SubResource("LabelSettings_a5qnj")
 
 [node name="FrameRateSlider" type="HSlider" parent="."]
@@ -166,20 +171,36 @@ offset_bottom = 166.0
 text = "0"
 label_settings = SubResource("LabelSettings_a5qnj")
 
+[node name="TotalErrorLabel" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 155.0
+offset_right = 195.0
+offset_bottom = 222.0
+text = "Error:"
+label_settings = SubResource("LabelSettings_a5qnj")
+
+[node name="TotalErrorValue" type="Label" parent="."]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 155.0
+offset_right = 333.0
+offset_bottom = 222.0
+text = "0.0"
+label_settings = SubResource("LabelSettings_rpy7a")
+
 [node name="ActionDisplay" type="ColorRect" parent="."]
 layout_mode = 0
-offset_top = 160.0
+offset_top = 228.0
 offset_right = 3300.0
-offset_bottom = 360.0
+offset_bottom = 378.0
 script = ExtResource("2_8yn5t")
 action_panel_template = ExtResource("5_2ca8i")
 
 [node name="ActionButtonTemplate" type="Button" parent="ActionDisplay"]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 68.0
 offset_right = 66.0
-offset_bottom = 99.0
+offset_bottom = 31.0
 scale = Vector2(2, 2)
 text = "Action"
 
