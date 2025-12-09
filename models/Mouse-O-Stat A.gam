@@ -1,4 +1,6 @@
 {
+	"waiting": 250,
+	"wondering": 500,
 	"governors": [
 		{
 			"name": "Heat",

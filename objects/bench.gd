@@ -11,9 +11,9 @@ var _gam_model_path: String = ""
 var _is_dirty: bool = false
 var _close_after_save: bool = false
 var waiting_value: int = 0
-var max_waiting: int = 240 # should be set from json file. 
+var max_waiting: int = 100 # set from json file. 
 var wondering_value: int = 0
-var max_wondering: int = 480 # should be set from json file. 
+var max_wondering: int = 100 # set from json file. 
 
 @export var frame_rate: float
 
@@ -150,6 +150,8 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
 		$ActionDisplay.init_action()
 		_set_is_aim_model(true, path)
 	else:
+		max_waiting = json.get('waiting')
+		max_wondering = json.get('wondering')
 		_gam_model.set_governor_dicts(json.get('governors') as Array, _aim_model)
 		_gam_model.set_actions(_aim_model.get_actions())
 		$GovernorDisplay.update_governors()
