@@ -69,7 +69,7 @@ func _on_timer_timeout() -> void:
 		if waiting_value == 0:
 			waiting_value = 1
 			wondering_value = 0
-			print("Do Best Action")
+			_do_best_action()
 	else:
 		if waiting_value == 0 and wondering_value == 0:
 			wondering_value = 1
@@ -80,13 +80,23 @@ func _on_timer_timeout() -> void:
 	if wondering_value > max_wondering:
 		waiting_value = 1
 		wondering_value = 0
-		print("Do Learning Action")
+		_do_learing_action()
 		
 	$TotalErrorValue.text = str("%.1f" % total_error_value)
 	$WaitingValue.text = str(waiting_value)
 	$WonderingValue.text = str(wondering_value)
 	$GovernorDisplay.refresh()
 	$ActionDisplay.refresh()
+
+
+func _do_best_action() -> void:
+	print("Do Best Action")
+	print(_gam_model.get_highest_votes_action().get_name())
+
+
+func _do_learing_action() -> void:
+	print("Do Learning Action")
+	print(_gam_model.get_lowest_evaluation_action().get_name())
 
 
 func _on_action_button_pressed(action: Action) -> void:
@@ -139,6 +149,7 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
 		_set_is_aim_model(true, path)
 	else:
 		_gam_model.set_governor_dicts(json.get('governors') as Array, _aim_model)
+		_gam_model.set_actions(_aim_model.get_actions())
 		$GovernorDisplay.update_governors()
 		_set_is_gam_model(true, path)
 
