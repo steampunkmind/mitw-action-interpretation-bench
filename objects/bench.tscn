@@ -172,21 +172,37 @@ text = "0"
 label_settings = SubResource("LabelSettings_a5qnj")
 
 [node name="TotalErrorLabel" type="Label" parent="."]
-offset_left = 24.0
+offset_left = 48.0
 offset_top = 155.0
-offset_right = 195.0
+offset_right = 1034.0
 offset_bottom = 222.0
-text = "Error:"
+text = "Error:            Waiting:             Wondering:"
 label_settings = SubResource("LabelSettings_a5qnj")
 
 [node name="TotalErrorValue" type="Label" parent="."]
 layout_mode = 0
-offset_left = 200.0
+offset_left = 190.0
 offset_top = 155.0
-offset_right = 333.0
+offset_right = 323.0
 offset_bottom = 222.0
 text = "0.0"
 label_settings = SubResource("LabelSettings_rpy7a")
+
+[node name="WaitingValue" type="Label" parent="."]
+offset_left = 524.0
+offset_top = 155.0
+offset_right = 657.0
+offset_bottom = 222.0
+text = "0"
+label_settings = SubResource("LabelSettings_a5qnj")
+
+[node name="WonderingValue" type="Label" parent="."]
+offset_left = 948.0
+offset_top = 155.0
+offset_right = 1081.0
+offset_bottom = 222.0
+text = "0"
+label_settings = SubResource("LabelSettings_a5qnj")
 
 [node name="ActionDisplay" type="ColorRect" parent="."]
 layout_mode = 0

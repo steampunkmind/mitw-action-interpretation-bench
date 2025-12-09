@@ -10,6 +10,10 @@ var _aim_model_path: String = ""
 var _gam_model_path: String = ""
 var _is_dirty: bool = false
 var _close_after_save: bool = false
+var waiting_value: int = 0
+var max_waiting: int = 240 # should be set from json file. 
+var wondering_value: int = 0
+var max_wondering: int = 480 # should be set from json file. 
 
 @export var frame_rate: float
 
@@ -55,7 +59,32 @@ func _on_timer_timeout() -> void:
 	for governor: Governor in _gam_model.get_governors():
 		governor.update_action_evaluations()
 		total_error_value += governor.get_error_value()
+		
+	if waiting_value > 0:
+		waiting_value += 1
+	if wondering_value > 0:
+		wondering_value += 1
+		
+	if total_error_value > 0:
+		if waiting_value == 0:
+			waiting_value = 1
+			wondering_value = 0
+			print("Do Best Action")
+	else:
+		if waiting_value == 0 and wondering_value == 0:
+			wondering_value = 1
+			
+	if waiting_value > max_waiting:
+		waiting_value = 0
+		
+	if wondering_value > max_wondering:
+		waiting_value = 1
+		wondering_value = 0
+		print("Do Learning Action")
+		
 	$TotalErrorValue.text = str("%.1f" % total_error_value)
+	$WaitingValue.text = str(waiting_value)
+	$WonderingValue.text = str(wondering_value)
 	$GovernorDisplay.refresh()
 	$ActionDisplay.refresh()
 
