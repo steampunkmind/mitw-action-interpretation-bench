@@ -105,11 +105,18 @@ func refresh() -> void:
 		action_panel.refresh()
 
 
-func action_selected(selected_action: Action) -> void:
+func best_action_selected(selected_action: Action) -> void:
 	for action: Action in _aim_model.get_actions():
 		if action.get_visible():
 			var panel = find_child(action.get_name() + "_panel", false, false)
-			panel.set_selected_line_visible(action == selected_action)
+			panel.set_best_line_visible(action == selected_action)
+
+
+func learning_action_selected(selected_action: Action) -> void:
+	for action: Action in _aim_model.get_actions():
+		if action.get_visible():
+			var panel = find_child(action.get_name() + "_panel", false, false)
+			panel.set_learning_line_visible(action == selected_action)
 
 
 ### Action Agent functions ###

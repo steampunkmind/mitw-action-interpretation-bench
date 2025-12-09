@@ -9,8 +9,10 @@ func init(position: Vector2, size_x: float, gam_model: GovernorActionModel, acti
 	size.x = size_x
 	$Total.size.x = size_x
 	$Votes.size.x = size_x
-	$SelectedLine.points[1].x = size_x - 2
-	$SelectedLine.points[2].x = size_x - 2
+	$BestLine.points[1].x = size_x - 2
+	$BestLine.points[2].x = size_x - 2
+	$LearningLine.points[1].x = size_x - 2
+	$LearningLine.points[2].x = size_x - 2
 	_gam_model = gam_model
 	_action = action
 
@@ -30,5 +32,11 @@ func refresh() -> void:
 	$Votes.text = str("%.1f" % (_gam_model.get_total_votes_value(_action)))
 
 
-func set_selected_line_visible(visible: bool) -> void:
-	$SelectedLine.visible = visible
+func set_best_line_visible(visible: bool) -> void:
+	$LearningLine.visible = false
+	$BestLine.visible = visible
+
+
+func set_learning_line_visible(visible: bool) -> void:
+	$BestLine.visible = false
+	$LearningLine.visible = visible

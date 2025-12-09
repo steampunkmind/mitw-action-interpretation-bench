@@ -29,9 +29,16 @@ text = "0.0"
 label_settings = SubResource("LabelSettings_pnv6l")
 horizontal_alignment = 1
 
-[node name="SelectedLine" type="Line2D" parent="."]
+[node name="BestLine" type="Line2D" parent="."]
 visible = false
 points = PackedVector2Array(2, 2, 100, 2, 100, 88, 2, 88)
 closed = true
 width = 4.0
 default_color = Color(0.784314, 0.188235, 0.188235, 1)
+
+[node name="LearningLine" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(2, 2, 100, 2, 100, 88, 2, 88)
+closed = true
+width = 4.0
+default_color = Color(0.313726, 0.54902, 0.784314, 1)
