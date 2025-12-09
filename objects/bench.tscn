@@ -172,6 +172,7 @@ text = "0"
 label_settings = SubResource("LabelSettings_a5qnj")
 
 [node name="TotalErrorLabel" type="Label" parent="."]
+layout_mode = 0
 offset_left = 48.0
 offset_top = 155.0
 offset_right = 1034.0
@@ -189,6 +190,7 @@ text = "0.0"
 label_settings = SubResource("LabelSettings_rpy7a")
 
 [node name="WaitingValue" type="Label" parent="."]
+layout_mode = 0
 offset_left = 524.0
 offset_top = 155.0
 offset_right = 657.0
@@ -197,6 +199,7 @@ text = "0"
 label_settings = SubResource("LabelSettings_a5qnj")
 
 [node name="WonderingValue" type="Label" parent="."]
+layout_mode = 0
 offset_left = 948.0
 offset_top = 155.0
 offset_right = 1081.0

@@ -1,5 +1,8 @@
 class_name GovernorActionModel extends Object
 
+var _visible_actions = []
+var _selected_random_actions = []
+
 var _governors: Array[Governor]:
 	get = get_governors, set = set_governors
 var _actions: Array[Action]:
@@ -39,6 +42,10 @@ func get_actions() -> Array[Action]:
 
 func set_actions(value: Array[Action]):
 	_actions = value
+	_visible_actions.clear()
+	for action: Action in _actions:
+		if action.get_visible():
+			_visible_actions.append(action)
 
 
 ## Utils ##
@@ -57,33 +64,45 @@ func get_total_votes_value(action: Action) -> float:
 	return result
 
 
+func get_random_action() -> Action:
+	if _selected_random_actions.size() == _visible_actions.size():
+		_selected_random_actions.clear()
+		
+	var actions = []
+	for action: Action in _visible_actions:
+		if !_selected_random_actions.has(action):
+			actions.append(action)
+				
+	actions.shuffle()
+	_selected_random_actions.append(actions[0])
+	return actions[0]
+
+
 func get_lowest_evaluation_action() -> Action:
 	var value = INF
 	var actions = []
-	for action: Action in _actions:
-		if action.get_visible():
-			var action_value = get_absolute_evaluation_value(action)
-			if action_value < value:
-				value = action_value
-				actions = [action]
-			elif action_value == value:
-				actions.append(action)
-				
+	for action: Action in _visible_actions:
+		var action_value = get_absolute_evaluation_value(action)
+		if action_value < value:
+			value = action_value
+			actions = [action]
+		elif action_value == value:
+			actions.append(action)
+			
 	actions.shuffle()
 	return actions[0]
 
 
 func get_highest_votes_action() -> Action:
-	var value = 0.0
+	var value = -INF
 	var actions = []
-	for action: Action in _actions:
-		if action.get_visible():
-			var action_value = get_total_votes_value(action)
-			if action_value > value:
-				value = action_value
-				actions = [action]
-			elif action_value == value:
-				actions.append(action)
+	for action: Action in _visible_actions:
+		var action_value = get_total_votes_value(action)
+		if action_value > value:
+			value = action_value
+			actions = [action]
+		elif action_value == value:
+			actions.append(action)
 				
 	actions.shuffle()
 	return actions[0]

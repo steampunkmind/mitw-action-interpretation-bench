@@ -105,6 +105,13 @@ func refresh() -> void:
 		action_panel.refresh()
 
 
+func action_selected(selected_action: Action) -> void:
+	for action: Action in _aim_model.get_actions():
+		if action.get_visible():
+			var panel = find_child(action.get_name() + "_panel", false, false)
+			panel.set_selected_line_visible(action == selected_action)
+
+
 ### Action Agent functions ###
 func select_action(action_name: String) -> void:
 	for action: Action in _aim_model.get_actions():

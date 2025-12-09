@@ -90,13 +90,19 @@ func _on_timer_timeout() -> void:
 
 
 func _do_best_action() -> void:
+	var action = _gam_model.get_highest_votes_action()
+	_on_action_button_pressed(action)
+	$ActionDisplay.action_selected(action)
 	print("Do Best Action")
-	print(_gam_model.get_highest_votes_action().get_name())
+	print(action.get_name())
 
 
 func _do_learing_action() -> void:
+	var action = _gam_model.get_random_action()
+	_on_action_button_pressed(action)
+	$ActionDisplay.action_selected(action)
 	print("Do Learning Action")
-	print(_gam_model.get_lowest_evaluation_action().get_name())
+	print(action.get_name())
 
 
 func _on_action_button_pressed(action: Action) -> void:
