@@ -24,8 +24,8 @@ func _ready() -> void:
 	$CloseConfirmationDialog.add_button(DONT_SAVE, false, DONT_SAVE)
 	_set_is_aim_model(false)
 	_set_is_dirty(false)
-	$OpenFileDialog.set_current_dir("models")
-	$SaveFileDialog.set_current_dir("models")
+	$OpenFileDialog.set_current_dir("mitw-common/models")
+	$SaveFileDialog.set_current_dir("mitw-common/models")
 	_aim_model = ActionInfluenceModel.new()
 	_gam_model = GovernorActionModel.new()
 	SensorFormula.model = _aim_model # set global var
