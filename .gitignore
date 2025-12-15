@@ -17,4 +17,5 @@ mono_crash.*.json
 
 # other
 web/
+mitw-common/
 
