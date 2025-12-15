@@ -35,13 +35,7 @@ func set_sensor_value(value: float) -> void:
 
 
 func update_sensor_value() -> void:
-	if (_sensor.get_formulas() != null):
-		var new_sensor_value = _sensor.get_formula_value(_sensor, _sensor.get_formulas())
-		if (new_sensor_value < _sensor.get_min()):
-			new_sensor_value = _sensor.get_min()
-		elif (new_sensor_value > _sensor.get_max()):
-			new_sensor_value = _sensor.get_max()
-		set_sensor_value(new_sensor_value)
+	set_sensor_value(_sensor.update_value())
 
 
 func set_formula(formula: Formula, edit_mode: bool) -> void:
