@@ -83,8 +83,14 @@ func _on_timer_timeout() -> void:
 		_do_learing_action()
 		
 	$TotalErrorValue.text = str("%.1f" % total_error_value)
-	$WaitingValue.text = str(waiting_value)
-	$WonderingValue.text = str(wondering_value)
+	var text = "—"
+	if waiting_value > 0:
+		text = str(max_waiting - waiting_value)
+	$WaitingValue.text = text
+	text = "—"
+	if wondering_value > 0:
+		text = str(max_wondering - wondering_value)
+	$WonderingValue.text = text
 	$GovernorDisplay.refresh()
 	$ActionDisplay.refresh()
 
