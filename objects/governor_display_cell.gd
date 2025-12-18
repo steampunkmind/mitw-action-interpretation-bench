@@ -29,6 +29,10 @@ func init(aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, actio
 	s.x = width
 	set_size(s)
 	$Value.size.x = width
+	$Border.points[1].x = width - 3
+	$Border.points[2].x = width - 3
+	$InfluenceLine.points[0].x = width - 5
+	$InfluenceLine.points[1].x = width - 5
 
 
 func refresh() -> void:

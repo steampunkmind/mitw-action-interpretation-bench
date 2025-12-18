@@ -80,12 +80,17 @@ func add_action_button(action: Action) -> void:
 		button.offset_top = button.position.y + (button.size.y * button.get_scale().y) + button_margin
 		var panel = action_panel_template.instantiate()
 		var panel_position = Vector2(new_visible_button_location_x, button.position.y + (button.size.y * button.get_scale().y))
-		panel.init(panel_position, (button.size.x * button.get_scale().x), _gam_model, action)
+		var x = (button.size.x * button.get_scale().x)
+		print(x)
+		if x < 80:
+			x = 80
+			button.size.x = x/button.get_scale().x
+		panel.init(panel_position, x, _gam_model, action)
 		panel.name = action.get_name() + "_panel"
 		add_child(panel)
 		action_panels.append(panel)
-		new_visible_button_location_x = button.position.x + (button.size.x * button.get_scale().x) + button_margin
-		action.set_name_width(button.size.x * button.get_scale().x)
+		new_visible_button_location_x = button.position.x + x + button_margin
+		action.set_name_width(x)
 	else:
 		button.offset_left = new_hidden_button_location_x
 		new_hidden_button_location_x = button.position.x + (button.size.x * button.get_scale().x) + button_margin
