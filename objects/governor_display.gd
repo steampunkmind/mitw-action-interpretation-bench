@@ -39,7 +39,7 @@ func clear_governor_display_rows() -> void:
 
 
 func add_governor_display_rows() -> void:
-	var header_margin = 58
+	var header_margin = 98
 	var row_margin = 10
 	var row_location = header_margin
 	for governor: Governor in _gam_model.get_governors():

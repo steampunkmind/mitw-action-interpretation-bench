@@ -38,10 +38,10 @@ func set_actions(value: Array[Action]):
 	for action: Action in _actions:
 		if action.get_visible():
 			var cell = governor_display_cell_template.instantiate()
-			cell.init(_aim_model, _gam_model, action, _governor, x)
+			cell.init(_aim_model, _gam_model, action, _governor, x, action.get_name_width())
 			add_child(cell)
 			governor_display_cells.set(action.get_name(), cell)
-			x += 84
+			x += (action.get_name_width()) + 8
 
 
 func refresh() -> void:

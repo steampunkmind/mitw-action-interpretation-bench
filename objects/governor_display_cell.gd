@@ -18,13 +18,17 @@ func _process(time_delta: float) -> void:
 	pass
 
 
-func init(aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, action: Action, governor: Governor, x: float):
+func init(aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, action: Action, governor: Governor, x: float, width: float):
 	_aim_model = aim_model
 	_action = action
 	_governor = governor
 	var p = get_position()
 	p.x = x
 	set_position(p)
+	var s = get_size()
+	s.x = width
+	set_size(s)
+	$Value.size.x = width
 
 
 func refresh() -> void:

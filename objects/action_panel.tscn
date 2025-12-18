@@ -10,7 +10,7 @@ font_color = Color(0.784314, 0.188235, 0.188235, 1)
 [node name="ActionPanel" type="ColorRect"]
 offset_right = 100.0
 offset_bottom = 90.0
-color = Color(0.784314, 0.784314, 0.784314, 1)
+color = Color(1, 1, 1, 0)
 script = ExtResource("1_pnv6l")
 
 [node name="Total" type="Label" parent="."]

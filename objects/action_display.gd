@@ -9,7 +9,8 @@ signal action_button_pressed
 
 var _aim_model: ActionInfluenceModel
 var _gam_model: GovernorActionModel
-var new_button_location
+var new_hidden_button_location_x
+var new_visible_button_location_x
 var action_buttons: Array[Button]
 var action_panels: Array[ActionPanel]
 
@@ -58,7 +59,8 @@ func clear_action_buttons():
 
 
 func add_action_buttons():
-	new_button_location = $ActionButtonTemplate.position.x
+	new_hidden_button_location_x = $ActionButtonTemplate.position.x
+	new_visible_button_location_x = $ActionButtonTemplate.position.x + 1740
 	for action: Action in _aim_model.get_actions():
 		add_action_button(action)
 
@@ -68,21 +70,25 @@ func add_action_button(action: Action) -> void:
 	var button_margin = button.position.x
 	button.name = action.get_name() + "_button"
 	button.text = action.get_name()
-	button.offset_left = new_button_location
 	button.pressed.connect(_action_button_pressed.bind(action))
 	add_child(button)
 	action_buttons.append(button)
 	button.visible = true
 	
 	if action.get_visible():
+		button.offset_left = new_visible_button_location_x
+		button.offset_top = button.position.y + (button.size.y * button.get_scale().y) + button_margin
 		var panel = action_panel_template.instantiate()
-		var panel_position = Vector2(new_button_location, button.position.y + (button.size.y * button.get_scale().y))
+		var panel_position = Vector2(new_visible_button_location_x, button.position.y + (button.size.y * button.get_scale().y))
 		panel.init(panel_position, (button.size.x * button.get_scale().x), _gam_model, action)
 		panel.name = action.get_name() + "_panel"
 		add_child(panel)
 		action_panels.append(panel)
-	
-	new_button_location = button.position.x + (button.size.x * button.get_scale().x) + button_margin
+		new_visible_button_location_x = button.position.x + (button.size.x * button.get_scale().x) + button_margin
+		action.set_name_width(button.size.x * button.get_scale().x)
+	else:
+		button.offset_left = new_hidden_button_location_x
+		new_hidden_button_location_x = button.position.x + (button.size.x * button.get_scale().x) + button_margin
 
 
 func show_hide_buttons():

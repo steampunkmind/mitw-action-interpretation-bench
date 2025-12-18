@@ -207,11 +207,18 @@ offset_bottom = 222.0
 text = "0"
 label_settings = SubResource("LabelSettings_a5qnj")
 
+[node name="GovernorDisplay" parent="." instance=ExtResource("5_6n0in")]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 360.0
+offset_right = 3300.0
+offset_bottom = 1948.0
+
 [node name="ActionDisplay" type="ColorRect" parent="."]
 layout_mode = 0
 offset_top = 228.0
 offset_right = 3300.0
-offset_bottom = 378.0
+offset_bottom = 348.0
 script = ExtResource("2_8yn5t")
 action_panel_template = ExtResource("5_2ca8i")
 
@@ -239,13 +246,6 @@ offset_right = 154.0
 offset_bottom = 58.0
 text = "Sensor"
 label_settings = SubResource("LabelSettings_2ca8i")
-
-[node name="GovernorDisplay" parent="." instance=ExtResource("5_6n0in")]
-layout_mode = 0
-offset_left = 500.0
-offset_top = 388.0
-offset_right = 3300.0
-offset_bottom = 1948.0
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
