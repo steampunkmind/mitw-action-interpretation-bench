@@ -60,7 +60,7 @@ func clear_action_buttons():
 
 func add_action_buttons():
 	new_hidden_button_location_x = $ActionButtonTemplate.position.x
-	new_visible_button_location_x = $ActionButtonTemplate.position.x + 1240
+	new_visible_button_location_x = $ActionButtonTemplate.position.x + 1440
 	for action: Action in _aim_model.get_actions():
 		add_action_button(action)
 

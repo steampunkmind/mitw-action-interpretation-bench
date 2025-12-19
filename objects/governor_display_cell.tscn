@@ -7,9 +7,8 @@ font_size = 32
 font_color = Color(0, 0, 0, 1)
 
 [node name="GovernorDisplayCell" type="ColorRect"]
-offset_left = 800.0
 offset_top = 4.0
-offset_right = 876.0
+offset_right = 76.0
 offset_bottom = 44.0
 color = Color(0.921569, 0.921569, 0.921569, 1)
 script = ExtResource("1_stghy")
