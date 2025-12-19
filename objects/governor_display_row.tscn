@@ -7,7 +7,7 @@
 
 [node name="GovernorDisplayRow" type="ColorRect"]
 offset_left = 8.0
-offset_right = 2792.0
+offset_right = 3292.0
 offset_bottom = 48.0
 script = ExtResource("1_by4yu")
 governor_display_cell_template = ExtResource("2_rv1hp")
