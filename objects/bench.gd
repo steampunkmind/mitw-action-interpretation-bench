@@ -162,6 +162,7 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
 		_gam_model.set_governor_dicts(json.get('governors') as Array, _aim_model)
 		_gam_model.set_actions(_aim_model.get_actions())
 		$GovernorDisplay.update_governors()
+		$ActionDisplay.show_visible_actions()
 		_set_is_gam_model(true, path)
 
 
@@ -291,7 +292,6 @@ func _disable_interface() -> void:
 
 func _reset_interface() -> void:
 	$ActionDisplay.visible = _is_aim_model
-	$SensorDisplay.visible = _is_aim_model
 	$GovernorDisplay.visible = _is_gam_model
 	$NewButton.disabled = _is_aim_model
 	$OpenAIMButton.disabled = _is_aim_model

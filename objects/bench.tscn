@@ -209,7 +209,6 @@ label_settings = SubResource("LabelSettings_a5qnj")
 
 [node name="GovernorDisplay" parent="." instance=ExtResource("5_6n0in")]
 layout_mode = 0
-offset_left = 500.0
 offset_top = 360.0
 offset_right = 3300.0
 offset_bottom = 1948.0
@@ -231,6 +230,7 @@ scale = Vector2(2, 2)
 text = "Action"
 
 [node name="SensorDisplay" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_top = 388.0
 offset_right = 500.0
