@@ -104,6 +104,15 @@ func show_visible_actions() -> void:
 		panel.visible = true
 
 
+func hide_visible_actions() -> void:
+	for action: Action in _aim_model.get_actions():
+		if action.get_visible():
+			get_node(action.get_name() + "_button").visible = false
+			
+	for panel: ActionPanel in action_panels:
+		panel.visible = false
+
+
 func show_hide_buttons():
 	for action: Action in _aim_model.get_actions():
 		if !action.get_visible():

@@ -142,6 +142,13 @@ func _on_open_gam_button_pressed() -> void:
 
 func _on_close_gam_button_pressed() -> void:
 	_set_is_gam_model(false)
+	$TotalErrorValue.text = str("%.1f" % 0.0)
+	waiting_value = 0
+	wondering_value = 0
+	$WaitingValue.text = "—"
+	$WonderingValue.text = "—"
+	$ActionDisplay.hide_visible_actions()
+	_aim_model.reset_sensors()
 
 
 func _on_open_file_dialog_file_selected(path: String) -> void:
