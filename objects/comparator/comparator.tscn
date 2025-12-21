@@ -50,12 +50,12 @@ default_color = Color(0.882353, 0.686275, 0.686275, 1)
 points = PackedVector2Array(48, 550, 0, 550)
 default_color = Color(0.666667, 0.333333, 0.333333, 1)
 
-[node name="PerceptionLine" type="Line2D" parent="."]
+[node name="PerceptLine" type="Line2D" parent="."]
 points = PackedVector2Array(48, 250, 0, 250)
 width = 12.0
 default_color = Color(0, 0, 0, 1)
 
-[node name="PerceptionValue" type="Label" parent="."]
+[node name="PerceptValue" type="Label" parent="."]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 800.0

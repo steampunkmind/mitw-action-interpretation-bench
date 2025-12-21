@@ -21,7 +21,7 @@ offset_bottom = 45.0
 text = "Name"
 label_settings = ExtResource("2_nbofd")
 
-[node name="SensorInputValue" type="Label" parent="."]
+[node name="SensorValue" type="Label" parent="."]
 layout_mode = 0
 offset_left = 400.0
 offset_right = 500.0
@@ -30,7 +30,7 @@ text = "0"
 label_settings = ExtResource("4_l50jy")
 horizontal_alignment = 1
 
-[node name="SensorFormulaValue" type="Label" parent="."]
+[node name="Perception" type="Label" parent="."]
 layout_mode = 0
 offset_left = 500.0
 offset_right = 600.0

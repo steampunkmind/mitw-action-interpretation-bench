@@ -45,6 +45,7 @@ func set_actions(value: Array[Action]):
 
 
 func refresh() -> void:
-	$Comparator.set_perception_value(_governor.get_sensor().get_value())
+	$SensorValue.text = str("%.1f" % _governor.get_sensor_value())
+	$Comparator.set_percept_value(_governor.get_percept_value())
 	for governor_display_cell: GovernorDisplayCell in governor_display_cells.values():
 		governor_display_cell.refresh()

@@ -2,6 +2,7 @@ class_name Governor extends RefCounted
 
 var _dict: Dictionary
 var _sensor: Sensor
+var _perception_types = {}
 var _action_evaluators: Dictionary
 var _error_value
 
@@ -14,6 +15,7 @@ func _init(dict: Dictionary, sensor: Sensor, aim_model: ActionInfluenceModel):
 		if action.get_visible():
 			_action_evaluators.set(action, ActionEvaluator.new(evaluator))
 
+	_perception_types.set(PerceptionFormulaOffset.TYPE, PerceptionFormulaOffset.new())
 
 func get_name():
 	return _dict.get('name')
@@ -40,6 +42,10 @@ func error_max():
 
 func get_sensor():
 	return _sensor
+
+
+func get_sensor_value() -> float:
+	return _sensor.get_value()
 
 
 func get_sensor_name() -> String:
@@ -77,6 +83,19 @@ func get_votes(action: Action) -> float:
 		if evaluation_value: 
 			return evaluation_value * _error_value * 100
 	return 0.0
+
+
+### Perception ###
+func get_percept_value() -> float:
+	return _sensor.get_value() - 10
+
+
+func get_perception_type(key: String) -> PerceptionFormula:
+	var formula_type_name = key.get_basename()
+	var result = _perception_types.get(formula_type_name)
+	if !result:
+		print(formula_type_name + " formula type not found.")
+	return result
 
 
 ### Action Opinions ###
