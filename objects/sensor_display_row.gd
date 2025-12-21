@@ -29,13 +29,8 @@ func set_sensor(sensor: Sensor) -> void:
 	$Name.text = sensor.get_name()
 
 
-func set_sensor_value(value: float) -> void:
-	_sensor.set_value(value)
-	$SensorValue.text = str("%.1f" % value)
-
-
 func update_sensor_value() -> void:
-	set_sensor_value(_sensor.update_value())
+	$SensorValue.text = str("%.1f" % _sensor.get_value())
 
 
 func set_formula(formula: Formula, edit_mode: bool) -> void:
