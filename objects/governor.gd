@@ -2,7 +2,8 @@ class_name Governor extends RefCounted
 
 var _dict: Dictionary
 var _sensor: Sensor
-var _perception_types = {}
+var _perception_types = {} 
+var _perception_formulas = {}
 var _action_evaluators: Dictionary
 var _error_value
 
@@ -14,8 +15,9 @@ func _init(dict: Dictionary, sensor: Sensor, aim_model: ActionInfluenceModel):
 	for action: Action in aim_model.get_actions():
 		if action.get_visible():
 			_action_evaluators.set(action, ActionEvaluator.new(evaluator))
-
+			
 	_perception_types.set(PerceptionFormulaOffset.TYPE, PerceptionFormulaOffset.new())
+
 
 func get_name():
 	return _dict.get('name')
@@ -85,12 +87,48 @@ func get_votes(action: Action) -> float:
 	return 0.0
 
 
+func update_values() -> void:
+	update_percept_value()
+	update_action_evaluations()
+
 ### Perception ###
+func update_percept_value() -> void:
+	var new_value = get_percept_formula_value(_perception_formulas)
+	set_percept_value(new_value)
+
+
 func get_percept_value() -> float:
-	return _sensor.get_value() - 10
+	return _dict.get('percept_value')
 
 
-func get_perception_type(key: String) -> PerceptionFormula:
+func set_percept_value(value: float):
+	_dict.set('percept_value', value)
+
+
+func set_percept_formula(formula: Formula) -> void:
+	var expressions = formula.get_expressions()
+	for key: String in expressions:
+		var expression = expressions.get(key)
+		var formula_type = get_formula_type(key)
+		if formula_type:
+			formula_type.init_expression(expression)
+			_perception_formulas.set(key, expression)
+
+
+func get_percept_formula_value(formulas: Dictionary) -> float:
+	var result = _sensor.get_value()
+	for key: String in formulas.keys():
+		var formula_type = get_formula_type(key)
+		if formula_type:
+			result = formula_type.get_value(result, key, formulas)
+			formula_type.increment_frame(key, formulas)
+			if formula_type.is_complete():
+				formula_type.set_complete(false)
+				_perception_formulas.erase(key)
+				
+	return result
+
+func get_formula_type(key: String) -> SensorFormula:
 	var formula_type_name = key.get_basename()
 	var result = _perception_types.get(formula_type_name)
 	if !result:

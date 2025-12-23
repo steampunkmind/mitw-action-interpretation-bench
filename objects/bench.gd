@@ -60,7 +60,7 @@ func _on_timer_timeout() -> void:
 	
 	var total_error_value = 0.0
 	for governor: Governor in _gam_model.get_governors():
-		governor.update_action_evaluations()
+		governor.update_values()
 		total_error_value += governor.get_error_value()
 		
 	if waiting_value > 0:
