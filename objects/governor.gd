@@ -17,6 +17,12 @@ func _init(dict: Dictionary, sensor: Sensor, aim_model: ActionInfluenceModel):
 			_action_evaluators.set(action, ActionEvaluator.new(evaluator))
 			
 	_perception_types.set(PerceptionFormulaOffset.TYPE, PerceptionFormulaOffset.new())
+	
+	var perceptions = _dict.get("perceptions")
+	if perceptions:
+		for perception in perceptions:
+			var formula = Formula.new(perception)
+			set_percept_formula(formula)
 
 
 func get_name():
@@ -128,7 +134,7 @@ func get_percept_formula_value(formulas: Dictionary) -> float:
 				
 	return result
 
-func get_formula_type(key: String) -> SensorFormula:
+func get_formula_type(key: String) -> PerceptionFormula:
 	var formula_type_name = key.get_basename()
 	var result = _perception_types.get(formula_type_name)
 	if !result:
