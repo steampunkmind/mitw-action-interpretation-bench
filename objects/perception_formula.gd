@@ -6,6 +6,10 @@ func get_value(value: float, key: String, formulas: Dictionary) -> float:
 	return value
 
 
+func get_text(key: String, formulas: Dictionary) -> String:
+	return ""
+
+
 func init_expression(expression) -> void:
 	pass # Override to init expression before adding to sensor.
 

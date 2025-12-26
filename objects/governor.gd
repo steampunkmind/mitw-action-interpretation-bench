@@ -100,7 +100,7 @@ func update_values() -> void:
 
 ### Perception ###
 func update_percept_value() -> void:
-	var new_value = get_percept_formula_value(_perception_formulas)
+	var new_value = _get_percept_formula_value(_perception_formulas)
 	set_percept_value(new_value)
 
 
@@ -110,6 +110,18 @@ func get_percept_value() -> float:
 
 func set_percept_value(value: float):
 	_dict.set('percept_value', value)
+
+
+func get_perception_text() -> String:
+	var result = ""
+	for key: String in _perception_formulas.keys():
+		var formula_type = get_formula_type(key)
+		if formula_type:
+			if result.length() > 0:
+				result += ", "
+			result += formula_type.get_text(key, _perception_formulas)
+			
+	return result
 
 
 func set_percept_formula(formula: Formula) -> void:
@@ -122,7 +134,7 @@ func set_percept_formula(formula: Formula) -> void:
 			_perception_formulas.set(key, expression)
 
 
-func get_percept_formula_value(formulas: Dictionary) -> float:
+func _get_percept_formula_value(formulas: Dictionary) -> float:
 	var result = _sensor.get_value()
 	for key: String in formulas.keys():
 		var formula_type = get_formula_type(key)

@@ -27,4 +27,16 @@ func get_value(value: float, key: String, formulas: Dictionary) -> float:
 		formula.set("on_timer", randi_range(formula.get("on_min_duration"), formula.get("on_max_duration")))
 		
 	return value
+
+
+func get_text(key: String, formulas: Dictionary) -> String:
+	var formula = formulas.get(key)
+	var off_timer = formula.get("off_timer")
+	if off_timer != null:
+		return str(formula.get("off_value")) + "|" + str(off_timer)
+		
+	var on_timer = formula.get("on_timer")
+	if on_timer != null:
+		return "0|" + str(on_timer)
 	
+	return "0"
