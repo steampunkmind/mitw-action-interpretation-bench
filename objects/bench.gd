@@ -111,7 +111,6 @@ func _do_learing_action() -> void:
 
 
 func _on_action_button_pressed(action: Action) -> void:
-	$SensorDisplay.set_action(action)
 	_aim_model.set_action(action)
 	if (action.get_visible()):
 		for governor: Governor in _gam_model.get_governors():

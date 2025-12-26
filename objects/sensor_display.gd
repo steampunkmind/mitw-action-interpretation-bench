@@ -48,11 +48,3 @@ func add_sensor_display_rows() -> void:
 func update_sensor_values() -> void:
 	for row in sensor_display_rows.values():
 		row.update_sensor_value()
-
-
-func set_action(action: Action) -> void:
-	for influence: Influence in action.get_influences():
-		var sensor_display_row = sensor_display_rows.get(influence.get_sensor_name())
-		if sensor_display_row != null :
-			sensor_display_row.set_formula(influence.get_formula(), _aim_model.get_edit_mode())
-			

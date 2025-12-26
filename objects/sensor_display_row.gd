@@ -31,9 +31,4 @@ func set_sensor(sensor: Sensor) -> void:
 
 func update_sensor_value() -> void:
 	$SensorValue.text = str("%.1f" % _sensor.get_value())
-
-
-func set_formula(formula: Formula, edit_mode: bool) -> void:
-	var expressions = formula.get_expressions()
-	for key: String in expressions:
-		_sensor.get_formulas().set(key, expressions.get(key))
+	
