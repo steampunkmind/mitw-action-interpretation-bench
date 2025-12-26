@@ -17,6 +17,7 @@ func _init(dict: Dictionary, sensor: Sensor, aim_model: ActionInfluenceModel):
 			_action_evaluators.set(action, ActionEvaluator.new(evaluator))
 			
 	_perception_types.set(PerceptionFormulaOffset.TYPE, PerceptionFormulaOffset.new())
+	_perception_types.set(PerceptionFormulaIntermittent.TYPE, PerceptionFormulaIntermittent.new())
 	
 	var perceptions = _dict.get("perceptions")
 	if perceptions:
