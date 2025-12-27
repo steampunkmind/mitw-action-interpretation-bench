@@ -168,9 +168,9 @@ func is_evaluating_action(action: Action) -> bool:
 
 ### Action Evaluating ###
 func update_action_evaluations() -> void:
-	var sensor_value = get_sensor().get_value()
+	var percept_value = get_percept_value()
 	for action_evaluator: ActionEvaluator in _action_evaluators.values():
-		action_evaluator.update_evaluation(sensor_value, is_max_type())
+		action_evaluator.update_evaluation(percept_value, is_max_type())
 
 
 func get_action_evaluation_value(action: Action) -> float:
