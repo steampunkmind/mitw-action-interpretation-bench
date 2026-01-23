@@ -7,7 +7,7 @@ func get_value(value: float, key: String, formulas: Dictionary) -> float:
 
 
 func get_text(key: String, formulas: Dictionary) -> String:
-	return ""
+	return "—"
 
 
 func init_expression(expression) -> void:
