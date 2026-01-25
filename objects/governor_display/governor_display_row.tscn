@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://do42nmm2le4ut"]
 
-[ext_resource type="Script" uid="uid://0twda0xia3wc" path="res://objects/governor_display_row.gd" id="1_by4yu"]
+[ext_resource type="Script" uid="uid://0twda0xia3wc" path="res://objects/governor_display/governor_display_row.gd" id="1_by4yu"]
 [ext_resource type="LabelSettings" uid="uid://csquvfsh3qxcv" path="res://objects/blue_label.tres" id="2_nbofd"]
-[ext_resource type="PackedScene" uid="uid://cgvcutxv85aho" path="res://objects/governor_display_cell.tscn" id="2_rv1hp"]
+[ext_resource type="PackedScene" uid="uid://cgvcutxv85aho" path="res://objects/governor_display/governor_display_cell.tscn" id="2_rv1hp"]
 [ext_resource type="PackedScene" uid="uid://c22l3s7w3x7v6" path="res://objects/comparator_display/comparator_display.tscn" id="4_fqjvj"]
 [ext_resource type="LabelSettings" uid="uid://b5mdxehagvn8n" path="res://objects/comparator_display/comparator_value.tres" id="4_l50jy"]
 

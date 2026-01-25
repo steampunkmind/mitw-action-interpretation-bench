@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b1mln0biebw6w"]
 
 [ext_resource type="LabelSettings" uid="uid://csquvfsh3qxcv" path="res://objects/blue_label.tres" id="1_bvhhn"]
-[ext_resource type="Script" uid="uid://bpi7n5pbt8hca" path="res://objects/action_panel.gd" id="1_pnv6l"]
+[ext_resource type="Script" uid="uid://bpi7n5pbt8hca" path="res://objects/action_display/action_panel.gd" id="1_pnv6l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pnv6l"]
 font_size = 32

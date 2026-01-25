@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgvcutxv85aho"]
 
-[ext_resource type="Script" uid="uid://bp3trit6stapg" path="res://objects/governor_display_cell.gd" id="1_stghy"]
+[ext_resource type="Script" uid="uid://bp3trit6stapg" path="res://objects/governor_display/governor_display_cell.gd" id="1_stghy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_stghy"]
 font_size = 32
