@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c22l3s7w3x7v6"]
 
-[ext_resource type="Script" uid="uid://dsf5d223s4sd2" path="res://objects/comparator/comparator.gd" id="1_2yn73"]
-[ext_resource type="LabelSettings" uid="uid://b5mdxehagvn8n" path="res://objects/comparator/comparatorValue.tres" id="2_dgqp1"]
+[ext_resource type="Script" uid="uid://dsf5d223s4sd2" path="res://objects/comparator_display/comparator_display.gd" id="1_l7l5e"]
+[ext_resource type="LabelSettings" uid="uid://b5mdxehagvn8n" path="res://objects/comparator_display/comparator_value.tres" id="2_dgjt5"]
 
 [sub_resource type="Gradient" id="Gradient_dgqp1"]
 resource_local_to_scene = true
@@ -12,7 +12,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1)
 resource_local_to_scene = true
 gradient = SubResource("Gradient_dgqp1")
 
-[node name="Comparator" type="ColorRect"]
+[node name="ComparatorDisplay" type="ColorRect"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -20,7 +20,7 @@ offset_top = -1950.0
 offset_right = 48.0
 offset_bottom = -1150.0
 grow_vertical = 0
-script = ExtResource("1_2yn73")
+script = ExtResource("1_l7l5e")
 
 [node name="ErrorColor" type="TextureRect" parent="."]
 layout_mode = 1
@@ -39,7 +39,7 @@ offset_right = 101.0
 offset_bottom = 146.0
 rotation = 4.71239
 text = "0"
-label_settings = ExtResource("2_dgqp1")
+label_settings = ExtResource("2_dgjt5")
 horizontal_alignment = 1
 
 [node name="ErrorThreshold" type="Line2D" parent="."]
@@ -63,7 +63,7 @@ offset_right = 101.0
 offset_bottom = 846.0
 rotation = 4.71239
 text = "0"
-label_settings = ExtResource("2_dgqp1")
+label_settings = ExtResource("2_dgjt5")
 horizontal_alignment = 1
 
 [node name="DivLine1" type="Line2D" parent="."]
