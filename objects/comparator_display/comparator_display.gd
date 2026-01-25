@@ -31,8 +31,8 @@ func set_error_peak_line() -> void:
 	
 func set_error_gradient() -> void:
 	var fill_from = $ErrorColor.get_texture().get_gradient()
-	fill_from.set_offset(0, calc_percept_percent(_governor.error_threshold()))
-	fill_from.set_offset(1, calc_percept_percent(_governor.error_peak()))
+	fill_from.set_offset(0, _governor.error_threshold_percent())
+	fill_from.set_offset(1, _governor.error_peak_percent())
 	
 	
 func set_percept_line(value: float) -> void:
@@ -77,13 +77,8 @@ func error_value(value: float) -> float:
 # Utils
 func calc_percept_y(value: float) -> float:
 	var container_y = get_size().y
-	var ratio = (container_y - top_margin - bottom_margin)/(_governor.get_sensor().get_max() - _governor.get_sensor().get_min())
+	var ratio = (container_y - top_margin - bottom_margin)/(_governor.get_sensor().get_range())
 	return container_y - bottom_margin - (value * ratio) + (_governor.get_sensor().get_min() * ratio)
-	
-	
-func calc_percept_percent(value: float) -> float:
-	var percept_range = _governor.get_sensor().get_max()-_governor.get_sensor().get_min()
-	return (percept_range - (value - _governor.get_sensor().get_min()))/percept_range
 	
 	
 func set_line_y(line: Line2D, value: float, index: int) -> void:
