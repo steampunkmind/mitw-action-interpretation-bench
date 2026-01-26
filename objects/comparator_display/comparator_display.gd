@@ -14,7 +14,6 @@ func _ready() -> void:
 	set_error_peak_line()
 	set_error_gradient()
 	set_percept_line(calc_percept_y(_governor.get_sensor().get_value()))
-	set_percept_value(_governor.get_sensor().get_value())
 	
 	
 func set_error_threshold_line() -> void:
@@ -46,36 +45,10 @@ func _process(_delta: float) -> void:
 	
 	
 func refresh() -> void:
-	set_percept_value(_governor.get_percept_value())
-	
-	
-func set_percept_value(value: float) -> void:
-	if (value > _governor.get_sensor().get_max()):
-		value = _governor.get_sensor().get_max()
-	elif (value < _governor.get_sensor().get_min()):
-		value = _governor.get_sensor().get_min()
-	
+	var value = _governor.get_percept_value()
 	set_percept_line(calc_percept_y(value))
 	$PerceptValue.text = str("%.1f" % value)
-	
-	var error_value = 0
-	if (_governor.error_threshold() >= _governor.error_peak()):
-		if (value < _governor.error_peak()): 
-			error_value = _governor.error_max()
-		elif (value < _governor.error_threshold()):
-			error_value = error_value(value)
-	else:
-		if (_governor.error_peak() < value): 
-			error_value = _governor.error_max()
-		elif (_governor.error_threshold() < value):
-			error_value = error_value(value)
-		
-	$ErrorValue.text = str("%.1f" % error_value)
-	_governor.set_error_value(error_value)
-	
-	
-func error_value(value: float) -> float:
-	return _governor.error_max() * (value - _governor.error_threshold())/(_governor.error_peak() - _governor.error_threshold())
+	$ErrorValue.text = str("%.1f" % _governor.get_error_value())
 	
 	 
 # Utils
