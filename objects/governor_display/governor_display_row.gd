@@ -29,12 +29,12 @@ func init (aim_model: ActionInfluenceModel, gam_model: GovernorActionModel, gove
 	p.y = y
 	set_position(p)
 	set_actions(_aim_model.get_actions())
-	$Comparator.init(governor)
+	$ComparatorDisplay.init(governor)
 
 
 func set_actions(value: Array[Action]):
 	_actions = value
-	var x = $Name.size.x + 241 + $Comparator.size.y # Uses y because Comparator is rotated 270° 
+	var x = $Name.size.x + 241 + $ComparatorDisplay.size.y # Uses y because Comparator is rotated 270° 
 	for action: Action in _actions:
 		if action.get_visible():
 			var cell = governor_display_cell_template.instantiate()
@@ -47,6 +47,6 @@ func set_actions(value: Array[Action]):
 func refresh() -> void:
 	$SensorValue.text = str("%.1f" % _governor.get_sensor_value())
 	$Perception.text = _governor.get_perception_text()
-	$Comparator.set_percept_value(_governor.get_percept_value())
+	$ComparatorDisplay.refresh()
 	for governor_display_cell: GovernorDisplayCell in governor_display_cells.values():
 		governor_display_cell.refresh()

@@ -39,7 +39,7 @@ text = "0"
 label_settings = ExtResource("4_l50jy")
 horizontal_alignment = 1
 
-[node name="Comparator" parent="." instance=ExtResource("4_fqjvj")]
+[node name="ComparatorDisplay" parent="." instance=ExtResource("4_fqjvj")]
 layout_mode = 0
 anchors_preset = 0
 anchor_top = 0.0

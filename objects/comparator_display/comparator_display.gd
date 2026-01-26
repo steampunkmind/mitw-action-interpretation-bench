@@ -45,6 +45,10 @@ func _process(_delta: float) -> void:
 	pass
 	
 	
+func refresh() -> void:
+	set_percept_value(_governor.get_percept_value())
+	
+	
 func set_percept_value(value: float) -> void:
 	if (value > _governor.get_sensor().get_max()):
 		value = _governor.get_sensor().get_max()
