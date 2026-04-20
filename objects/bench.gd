@@ -2,12 +2,11 @@ extends ColorRect
 
 const DONT_SAVE = "Don't Save"
 
-var _aim_model: ActionInfluenceModel
-var _gam_model: GovernorActionModel
 var _is_aim_model: bool = false
 var _is_gam_model: bool = false
 var _aim_model_path: String = ""
 var _gam_model_path: String = ""
+var _aim_model_dict # holds dict between file dialogs
 var _is_dirty: bool = false
 var _close_after_save: bool = false
 var waiting_value: int = 0
@@ -26,13 +25,6 @@ func _ready() -> void:
 	_set_is_dirty(false)
 	$OpenFileDialog.set_current_dir("mitw-common/models")
 	$SaveFileDialog.set_current_dir("mitw-common/models")
-	_aim_model = ActionInfluenceModel.new()
-	_gam_model = GovernorActionModel.new()
-	SensorFormula.model = _aim_model # set global var
-	SensorFormula.action_agent = $ActionDisplay # set global var
-	$ActionDisplay.set_models(_aim_model, _gam_model)
-	$SensorDisplay.set_aim_model(_aim_model)
-	$GovernorDisplay.set_models(_aim_model, _gam_model)
 	$Timer.paused = true
 
 
@@ -54,12 +46,12 @@ func _on_frame_rate_slider_value_changed(new_value: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	for sensor in _aim_model.get_sensors():
+	for sensor in MITW.aim_model().get_sensors():
 		sensor.update_value()
 	$SensorDisplay.update_sensor_values()
 	
 	var total_error_value = 0.0
-	for governor: Governor in _gam_model.get_governors():
+	for governor: Governor in MITW.gam_model().get_governors():
 		governor.update_values()
 		total_error_value += governor.get_error_value()
 		
@@ -99,21 +91,21 @@ func _on_timer_timeout() -> void:
 
 
 func _do_best_action() -> void:
-	var action = _gam_model.get_highest_votes_action()
+	var action = MITW.gam_model().get_highest_votes_action()
 	_on_action_button_pressed(action)
 	$ActionDisplay.best_action_selected(action)
 
 
 func _do_learing_action() -> void:
-	var action = _gam_model.get_random_action()
+	var action = MITW.gam_model().get_random_action()
 	_on_action_button_pressed(action)
 	$ActionDisplay.learning_action_selected(action)
 
 
 func _on_action_button_pressed(action: Action) -> void:
-	_aim_model.set_action(action)
-	if (action.get_visible()):
-		for governor: Governor in _gam_model.get_governors():
+	MITW.aim_model().set_action(action)
+	if (action.get_behavioral()):
+		for governor: Governor in MITW.gam_model().get_governors():
 			governor.set_action(action)
 
 
@@ -150,7 +142,7 @@ func _on_close_gam_button_pressed() -> void:
 	$WaitingValue.text = "—"
 	$WonderingValue.text = "—"
 	$ActionDisplay.hide_visible_actions()
-	_aim_model.reset_sensors()
+	MITW.aim_model().reset_sensors()
 
 
 func _on_open_file_dialog_file_selected(path: String) -> void:
@@ -159,17 +151,14 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
 	file.close()
 	
 	if !_is_aim_model:
-		_aim_model.set_action_dicts(json.get('actions') as Array)
-		_aim_model.set_sensor_dicts(json.get('sensors') as Array)
+		_aim_model_dict = json
+		_set_is_aim_model(true, path)
+	else:
+		MITW.init(_aim_model_dict, json)
+		MITW.init_action()
 		$ActionDisplay.update_buttons()
 		$SensorDisplay.update_sensors()
 		$ActionDisplay.init_action()
-		_set_is_aim_model(true, path)
-	else:
-		max_waiting = json.get('waiting')
-		max_wondering = json.get('wondering')
-		_gam_model.set_governor_dicts(json.get('governors') as Array, _aim_model)
-		_gam_model.set_actions(_aim_model.get_actions())
 		$GovernorDisplay.update_governors()
 		$ActionDisplay.show_visible_actions()
 		_set_is_gam_model(true, path)
@@ -223,19 +212,16 @@ func _write_file() -> void:
 
 func get_dict() -> Dictionary:
 	var dict = {}
-	dict.set('actions', _aim_model.get_action_dicts())
-	dict.set('sensors', _aim_model.get_sensor_dicts())
+	dict.set('actions', MITW.aim_model().get_action_dicts())
+	dict.set('sensors', MITW.aim_model().get_sensor_dicts())
 	return dict
 
 
 func _set_is_aim_model(is_aim_model: bool, model_path: String = "") -> void:
 	_is_aim_model = is_aim_model
-	#$SubHeader.visible = is_aim_model
-	#$SubHeader.text = model_path.get_basename().get_file().capitalize()
 	_aim_model_path = model_path
 	_reset_interface()
-	#$Timer.paused = !is_aim_model
-
+	
 
 func _get_is_aim_model() -> bool:
 	return _is_aim_model
@@ -273,7 +259,7 @@ func _set_is_dirty(is_dirty: bool) -> void:
 func _on_edit_actions_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		$ActionDisplay.clear_action_buttons()
-		$EditActions.set_actions(_aim_model.get_actions())
+		$EditActions.set_actions(MITW.aim_model().get_actions())
 		$EditActionsButton.text = "Done"
 		_disable_interface()
 		$EditActionsButton.disabled = false
@@ -313,5 +299,5 @@ func _reset_interface() -> void:
 
 
 func _on_eye_button_toggled(toggled_on: bool) -> void:
-	_aim_model.set_edit_mode(toggled_on)
+	MITW.aim_model().set_edit_mode(toggled_on)
 	$ActionDisplay.show_hide_buttons()

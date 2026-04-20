@@ -36,7 +36,7 @@ func set_actions(value: Array[Action]):
 	_actions = value
 	var x = $Name.size.x + 241 + $ComparatorDisplay.size.y # Uses y because Comparator is rotated 270° 
 	for action: Action in _actions:
-		if action.get_visible():
+		if action.get_behavioral():
 			var cell = governor_display_cell_template.instantiate()
 			cell.init(_aim_model, _gam_model, action, _governor, x, action.get_name_width())
 			add_child(cell)

@@ -7,8 +7,6 @@ signal action_button_pressed
 @export var action_button_template: Button
 @export var action_panel_template: PackedScene
 
-var _aim_model: ActionInfluenceModel
-var _gam_model: GovernorActionModel
 var new_hidden_button_location_x
 var new_visible_button_location_x
 var action_buttons: Array[Button]
@@ -24,11 +22,6 @@ func _process(delta: float) -> void:
 	pass
 
 
-func set_models(aim_model: ActionInfluenceModel,  gam_model: GovernorActionModel):
-	_aim_model = aim_model
-	_gam_model = gam_model
-
-
 func update_buttons():
 	clear_action_buttons()
 	add_action_buttons()
@@ -40,13 +33,12 @@ func _action_button_pressed(action: Action) -> void:
 
 
 func set_new_model() -> void:
-	_aim_model.fill_actions(action_array)
 	update_buttons()
 
 
 func init_action() -> void:
 	# called by bench to init after other scenes are set up. 
-	_action_button_pressed(_aim_model.get_actions()[0])
+	_action_button_pressed(MITW.aim_model().get_actions()[0])
 
 
 func clear_action_buttons():
@@ -61,7 +53,7 @@ func clear_action_buttons():
 func add_action_buttons():
 	new_hidden_button_location_x = $ActionButtonTemplate.position.x
 	new_visible_button_location_x = $ActionButtonTemplate.position.x + 1440
-	for action: Action in _aim_model.get_actions():
+	for action: Action in MITW.aim_model().get_actions():
 		add_action_button(action)
 
 
@@ -74,7 +66,7 @@ func add_action_button(action: Action) -> void:
 	add_child(button)
 	action_buttons.append(button)
 	
-	if action.get_visible():
+	if action.get_behavioral():
 		button.offset_left = new_visible_button_location_x
 		button.offset_top = button.position.y + (button.size.y * button.get_scale().y) + button_margin
 		var panel = action_panel_template.instantiate()
@@ -83,7 +75,7 @@ func add_action_button(action: Action) -> void:
 		if x < 80:
 			x = 80
 			button.size.x = x/button.get_scale().x
-		panel.init(panel_position, x, _gam_model, action)
+		panel.init(panel_position, x, action)
 		panel.name = action.get_name() + "_panel"
 		panel.visible = false
 		add_child(panel)
@@ -96,8 +88,8 @@ func add_action_button(action: Action) -> void:
 
 
 func show_visible_actions() -> void:
-	for action: Action in _aim_model.get_actions():
-		if action.get_visible():
+	for action: Action in MITW.aim_model().get_actions():
+		if action.get_behavioral():
 			get_node(action.get_name() + "_button").visible = true
 			
 	for panel: ActionPanel in action_panels:
@@ -105,8 +97,8 @@ func show_visible_actions() -> void:
 
 
 func hide_visible_actions() -> void:
-	for action: Action in _aim_model.get_actions():
-		if action.get_visible():
+	for action: Action in MITW.aim_model().get_actions():
+		if action.get_behavioral():
 			get_node(action.get_name() + "_button").visible = false
 			
 	for panel: ActionPanel in action_panels:
@@ -114,11 +106,11 @@ func hide_visible_actions() -> void:
 
 
 func show_hide_buttons():
-	for action: Action in _aim_model.get_actions():
-		if !action.get_visible():
+	for action: Action in MITW.aim_model().get_actions():
+		if !action.get_behavioral():
 			var button = find_child(action.get_name() + "_button", false, false)
 			var panel = find_child(action.get_name() + "_panel", false, false)
-			if _aim_model.get_edit_mode():
+			if MITW.aim_model().get_edit_mode():
 				button.show()
 				if panel:
 					panel.show()
@@ -134,22 +126,22 @@ func refresh() -> void:
 
 
 func best_action_selected(selected_action: Action) -> void:
-	for action: Action in _aim_model.get_actions():
-		if action.get_visible():
+	for action: Action in MITW.aim_model().get_actions():
+		if action.get_behavioral():
 			var panel = find_child(action.get_name() + "_panel", false, false)
 			panel.set_best_line_visible(action == selected_action)
 
 
 func learning_action_selected(selected_action: Action) -> void:
-	for action: Action in _aim_model.get_actions():
-		if action.get_visible():
+	for action: Action in MITW.aim_model().get_actions():
+		if action.get_behavioral():
 			var panel = find_child(action.get_name() + "_panel", false, false)
 			panel.set_learning_line_visible(action == selected_action)
 
 
 ### Action Agent functions ###
 func select_action(action_name: String) -> void:
-	for action: Action in _aim_model.get_actions():
+	for action: Action in MITW.aim_model().get_actions():
 		if (action.get_name() == action_name):
 			action_button_pressed.emit(action)
 			break
@@ -157,7 +149,7 @@ func select_action(action_name: String) -> void:
 
 func shuffle_action(action_names) -> void:
 	var actions_to_shuffle = []
-	for action: Action in _aim_model.get_actions():
+	for action: Action in MITW.aim_model().get_actions():
 		if action_names.has(action.get_name()):
 			actions_to_shuffle.append(action)
 	
