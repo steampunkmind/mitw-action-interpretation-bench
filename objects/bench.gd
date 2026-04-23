@@ -9,10 +9,6 @@ var _gam_model_path: String = ""
 var _aim_model_dict # holds dict between file dialogs
 var _is_dirty: bool = false
 var _close_after_save: bool = false
-var waiting_value: int = 0
-var max_waiting: int = 100 # set from json file. 
-var wondering_value: int = 0
-var max_wondering: int = 100 # set from json file. 
 
 @export var frame_rate: float
 
@@ -46,45 +42,18 @@ func _on_frame_rate_slider_value_changed(new_value: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	for sensor in MITW.aim_model().get_sensors():
-		sensor.update_value()
+	MITW.go_to_next_frame()
 	$SensorDisplay.update_sensor_values()
-	
-	var total_error_value = 0.0
-	for governor: Governor in MITW.gam_model().get_governors():
-		governor.update_values()
-		total_error_value += governor.get_error_value()
-		
-	if waiting_value > 0:
-		waiting_value += 1
-	if wondering_value > 0:
-		wondering_value += 1
-		
-	if total_error_value > 0:
-		if waiting_value == 0:
-			waiting_value = 1
-			wondering_value = 0
-			_do_best_action()
-	else:
-		if waiting_value == 0 and wondering_value == 0:
-			wondering_value = 1
-			
-	if waiting_value > max_waiting:
-		waiting_value = 0
-		
-	if wondering_value > max_wondering:
-		waiting_value = 1
-		wondering_value = 0
-		_do_learing_action()
-		
-	$TotalErrorValue.text = str("%.1f" % total_error_value)
+	$TotalErrorValue.text = str("%.1f" % MITW.get_total_error_value())
 	var text = "—"
-	if waiting_value > 0:
-		text = str(max_waiting - waiting_value)
+	var countdown = MITW.get_waiting_countdown()
+	if countdown > 0:
+		text = str(countdown)
 	$WaitingValue.text = text
 	text = "—"
-	if wondering_value > 0:
-		text = str(max_wondering - wondering_value)
+	countdown = MITW.get_wondering_countdown()
+	if countdown > 0:
+		text = str(countdown)
 	$WonderingValue.text = text
 	$GovernorDisplay.refresh()
 	$ActionDisplay.refresh()
@@ -137,8 +106,6 @@ func _on_open_gam_button_pressed() -> void:
 func _on_close_gam_button_pressed() -> void:
 	_set_is_gam_model(false)
 	$TotalErrorValue.text = str("%.1f" % 0.0)
-	waiting_value = 0
-	wondering_value = 0
 	$WaitingValue.text = "—"
 	$WonderingValue.text = "—"
 	$ActionDisplay.hide_visible_actions()
