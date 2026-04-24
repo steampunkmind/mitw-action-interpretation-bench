@@ -47,12 +47,12 @@ func _on_timer_timeout() -> void:
 	$TotalErrorValue.text = str("%.1f" % MITW.get_total_error_value())
 	var text = "—"
 	var countdown = MITW.get_waiting_countdown()
-	if countdown > 0:
+	if countdown < MITW.gam_model().get_waiting():
 		text = str(countdown)
 	$WaitingValue.text = text
 	text = "—"
 	countdown = MITW.get_wondering_countdown()
-	if countdown > 0:
+	if countdown < MITW.gam_model().get_wondering():
 		text = str(countdown)
 	$WonderingValue.text = text
 	$GovernorDisplay.refresh()
@@ -188,7 +188,7 @@ func _set_is_aim_model(is_aim_model: bool, model_path: String = "") -> void:
 	_is_aim_model = is_aim_model
 	_aim_model_path = model_path
 	_reset_interface()
-	
+
 
 func _get_is_aim_model() -> bool:
 	return _is_aim_model
@@ -197,14 +197,14 @@ func _set_is_gam_model(is_gam_model: bool, model_path: String = "") -> void:
 	_is_gam_model = is_gam_model
 	_gam_model_path = model_path
 	$SubHeader.visible = is_gam_model
-	var aim_name = _aim_model_path.get_basename().get_file().capitalize()
-	var gam_name = _gam_model_path.get_basename().get_file().capitalize()
+	var aim_name = _aim_model_path.get_basename().get_file()
+	var gam_name = _gam_model_path.get_basename().get_file()
 	
 	$SubHeader.text = aim_name + " - " + gam_name
 	_reset_interface()
 	$Timer.paused = !is_gam_model
-	
-	
+
+
 func _get_is_model_file() -> bool:
 	return _gam_model_path != ""
 

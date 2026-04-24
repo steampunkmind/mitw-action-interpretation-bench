@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 
 
 func refresh() -> void:
-	$Total.text = str("%.1f" % (MITW.gam_model().get_absolute_evaluation_value(_action)*100))
+	$Total.text = str("%.1f" % (MITW.gam_model().get_absolute_evaluation_value(_action)))
 	$Votes.text = str("%.1f" % (MITW.gam_model().get_total_votes_value(_action)))
 
 
